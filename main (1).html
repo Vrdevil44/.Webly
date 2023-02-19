@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>Glowing gradient glassmorphism</title>
+        <link rel="stylesheet" type="text/css" href="stylehome.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="spinner"></div>
+        <div class="image"><img src="1.png" alt=".webly" width="180px" height="45px"></div>
+        <div class="tagline">Design in a Web-manner.</div>
+        <ul class="header">
+            <li><a href="main (1).html"><ion-icon name="home-outline"></ion-icon></a></li>
+            <li><a href="mainlogin.html"><ion-icon name="person-outline"></ion-icon></a></li>
+            <li><a href="mainprojects.html"><ion-icon name="add-circle-outline"></ion-icon></a></li>
+            <li><a href="mainabout.html"><ion-icon name="people-outline"></ion-icon></a></li>
+            <li><a href="mainrevies.html"><ion-icon name="chatbubble-outline"></ion-icon></a></li>
+            <div id="marker"></div>
+        </ul>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    
+        <script>
+            let marker = document.querySelector('#marker');
+            let list = document.querySelectorAll('ul li');
+    
+            function moveIndicator(e){
+                marker.style.left = e.offsetLeft+'px';
+                marker.style.top = e.offsetTop+'px';
+            }
+            
+            list.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    moveIndicator(e.target);
+                })
+            })
+    
+            //add active class in hovered list item
+            function activeLink(){
+                list.forEach((item) =>
+                item.classList.remove('active'));
+                this.classList.add('active');
+            }
+    
+            list.forEach((item) =>
+            item.addEventListener('click', activeLink))
+        </script>
+    
+        <div class="container2">
+            <div class="box">
+                <span></span>
+                <div class="content">
+                    <h2>ABOUT US</h2>
+                    <p>We strive for innovation and impact, we are constantly listening to each other and our clients to learn, grow, and change for the better. The webly team thrives on collaboration, and a vision to always bring our best.</p>
+                    <a href="mainabout.html">Read More</a>
+                </div>
+            </div>
+            <div class="box">
+                <span></span>
+                <div class="content">
+                    <h2>OUR PROJECTS</h2>
+                    <p>Over the years we have worked with hundreds of amazing clients in a wide range of industries ranging from tech, commute, and even potfolio. Check out just a few of the great companies that we’ve worked with.
+                    </p>
+                    <a href="mainprojects.html">Read More</a>
+                </div>
+            </div>
+            <div class="box">
+                <span></span>
+                <div class="content">
+                    <h2>REVIEWS</h2>
+                    <p>We strive to provide real value to our clients, and an overall exceptional experience . Over the years we’ve received over 300 5-star Google ratings of our projects. Check out what some of our amazing clients have said.</p>
+                    <a href="mainrevies.html">Read More</a>
+                </div>
+            </div>
+            <ul class="footer"> 
+                <li><a href="https://www.instagram.com"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                <li><a href="https://www.facebook.com"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                <li><a href="https://www.whatsapp.com"><ion-icon name="logo-whatsapp"></ion-icon></a></li>
+                <li><a href="https://twitter.com"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                <li><a href="https://www.gmail.com"><ion-icon name="mail-outline"></ion-icon></a></li>
+            </ul>    
+        </div>
+        <div class="footerbase"></div>
+    </body>
+</html>
