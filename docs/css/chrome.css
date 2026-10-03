@@ -1,5 +1,6 @@
-/* Shared page chrome: reset, body, spinner, logo, nav, footer. Tokens/blobs live in base.css */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+/* Shared page chrome: reset, body, spinner, logo, nav, footer. Tokens/blobs live in base.css.
+   Mobile-first: below 900px the chrome is a top bar with a disclosure menu; from 900px it is the
+   floating logo + left nav rail. Page content is padded by --wly-chrome-clear / --wly-page-pad. */
 @layer tokens, base, components, pages;
 
 @layer base {
@@ -9,33 +10,55 @@
     box-sizing: border-box;
   }
 
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: var(--wly-chrome-clear);
+  }
+
   body {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: var(--wly-chrome-clear) var(--wly-page-pad) 90px; /* bottom: clear the fixed footer bar */
     background: var(--wly-bg-gradient);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-height: 100%;
     background-size: 200% 200%;
     animation: gradient var(--wly-bg-speed) ease infinite;
     font-family: var(--wly-font-body);
+    font-size: var(--wly-fs-body);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--wly-ink);
+    overflow-wrap: break-word;
+  }
+
+  main {
+    display: block;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 }
 
 @layer components {
   .spinner {
     box-sizing: border-box;
-    margin-top: 25px;
-    margin-left: 20px;
     width: 60px;
     height: 60px;
-    z-index: 1;
+    z-index: 30;
     border-left: 12px solid var(--wly-ink);
     border-right: 12px solid var(--wly-ink);
     overflow: hidden;
     position: fixed;
-    left: 0.5em;
-    top: 0.5em;
-    margin-bottom: 0em;
+    left: calc(50% - 30px);
+    top: 2px;
     opacity: 1;
     animation: rotateplane 2s infinite ease-in-out;
     transition: opacity 0.4s;
@@ -68,22 +91,29 @@
     left: 4px;
   }
 
-  .image {
-    box-sizing: border-box;
-    z-index: 1;
+  /* ---- Top bar (mobile / tablet) ---- */
+  .site-chrome {
     position: fixed;
-    left: 6%;
-    top: 1%;
-    margin-bottom: 0em;
-    opacity: 1;
-    width: 180px;
-    height: 45px;
-    margin-top: 20px;
-    margin-left: 20px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    height: 64px;
+    padding: 0 var(--wly-page-pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--wly-glass-text);
+    border-bottom: 1px solid var(--wly-glass-border-faint);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
+    -webkit-backdrop-filter: blur(var(--wly-blur-nav));
+    backdrop-filter: blur(var(--wly-blur-nav));
   }
 
   a.image {
     display: block;
+    width: 150px;
+    height: 38px;
     text-decoration: none;
   }
 
@@ -95,30 +125,104 @@
   }
 
   .tagline {
+    display: none;
     font-size: var(--wly-font-size-sm);
+    font-weight: 500;
     color: var(--wly-ink);
-    font-weight: 100;
-    z-index: 1;
-    position: fixed;
-    left: 7%;
-    top: 7%;
-    margin-bottom: 0em;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--wly-radius-lg);
+    border: 1px solid var(--wly-glass-border-soft);
+    background: var(--wly-glass-tint-md);
+    color: var(--wly-ink);
+    cursor: pointer;
+  }
+
+  html:not(.js) .nav-toggle {
+    display: none;
+  }
+
+  /* Hamburger drawn in CSS so the menu never depends on the icon font loading */
+  .nav-toggle-bars,
+  .nav-toggle-bars::before,
+  .nav-toggle-bars::after {
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform 0.25s, opacity 0.25s;
+  }
+
+  .nav-toggle-bars {
+    position: relative;
+  }
+
+  .nav-toggle-bars::before,
+  .nav-toggle-bars::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .nav-toggle-bars::before {
+    top: -7px;
+  }
+
+  .nav-toggle-bars::after {
+    top: 7px;
+  }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars {
+    background: transparent;
+  }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars::before {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars::after {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Disclosure panel: hidden (and therefore unfocusable) until opened; always shown without JS */
+  .site-nav {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: var(--wly-page-pad);
+    width: min(280px, calc(100vw - 2 * var(--wly-page-pad)));
+    overflow: hidden;
+    border-radius: var(--wly-radius-xl);
+    background: var(--wly-glass-menu); /* near-opaque: a backdrop-filter nested in the blurred bar can't blur the page */
+    border: 1px solid var(--wly-glass-border-soft);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+    -webkit-backdrop-filter: blur(var(--wly-blur-nav));
+    backdrop-filter: blur(var(--wly-blur-nav));
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.2s, transform 0.2s, visibility 0s 0.2s;
+  }
+
+  .site-nav.is-open,
+  html:not(.js) .site-nav {
     opacity: 1;
-    width: 180px;
-    height: 45px;
-    margin-top: 20px;
-    margin-left: 20px;
+    visibility: visible;
+    transform: none;
+    transition: opacity 0.2s, transform 0.2s;
   }
 
   ul.header {
-    position: fixed;
-    margin-top: 8%;
-    margin-left: -92%;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    border-radius: var(--wly-radius-lg);
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    padding: 6px;
   }
 
   ul.header li {
@@ -127,80 +231,44 @@
 
   ul.header li a {
     position: relative;
-    color: var(--wly-ink);
-    text-decoration: none;
+    z-index: 2;
     display: flex;
-    padding: 15px 15px;
-    z-index: 1000;
-    -webkit-backdrop-filter: blur(var(--wly-blur-nav));
-    backdrop-filter: blur(var(--wly-blur-nav));
+    align-items: center;
+    gap: 14px;
+    min-height: 48px;
+    padding: 10px 14px;
+    border-radius: var(--wly-radius-lg);
+    color: var(--wly-ink);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  ul.header li a[aria-current="page"] {
+    background: var(--wly-glass-tint-lg);
+    font-weight: 700;
   }
 
   ul.header li a ion-icon {
-    font-size: 2em;
+    flex: none;
+    font-size: 1.5rem;
     pointer-events: none;
-    opacity: 0.25;
-    transition: 0.25s;
-  }
-
-  ul.header li a[aria-current="page"] ion-icon {
-    opacity: 1;
   }
 
   #marker {
-    position: absolute;
-    justify-content: center;
-    top: 0;
-    margin-left: 22px;
-    transition: 0.5s;
-    z-index: 1;
+    display: none; /* the glowing tile is the desktop rail's active indicator only */
   }
 
-  #marker::before {
-    content: '';
-    position: absolute;
-    justify-content: center;
-    top: 20px;
-    left: 92%;
-    transform: translateX(0%);
-    width: 30px;
-    height: 30px;
-    border-radius: var(--wly-radius-md);
-  }
-
-  ul.header li:nth-child(1):has(> a[aria-current="page"]) ~ #marker::before {
-    background: var(--wly-marker-1);
-    box-shadow: var(--wly-glow-amber);
-  }
-
-  ul.header li:nth-child(2):has(> a[aria-current="page"]) ~ #marker::before {
-    background: var(--wly-marker-2);
-    box-shadow: 0 0 15px var(--wly-marker-2), 0 0 30px var(--wly-marker-2), 0 0 45px var(--wly-marker-2), 0 0 60px var(--wly-marker-2);
-  }
-
-  ul.header li:nth-child(3):has(> a[aria-current="page"]) ~ #marker::before {
-    background: var(--wly-marker-3);
-    box-shadow: 0 0 15px var(--wly-marker-3), 0 0 30px var(--wly-marker-3), 0 0 45px var(--wly-marker-3), 0 0 60px var(--wly-marker-3);
-  }
-
-  ul.header li:nth-child(4):has(> a[aria-current="page"]) ~ #marker::before {
-    background: var(--wly-marker-4);
-    box-shadow: var(--wly-glow-magenta);
-  }
-
-  ul.header li:nth-child(5):has(> a[aria-current="page"]) ~ #marker::before {
-    background: var(--wly-marker-5);
-    box-shadow: 0 0 15px var(--wly-marker-5), 0 0 30px var(--wly-marker-5), 0 0 45px var(--wly-marker-5), 0 0 60px var(--wly-marker-5);
-  }
-
+  /* ---- Footer bar + social tiles ---- */
   .footerbase {
     position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 48px;
     overflow: hidden;
-    bottom: 15px;
-    width: 100%;
-    height: 60px;
+    z-index: 10;
+    background: var(--wly-glass-text);
     box-shadow: var(--wly-glass-shadow);
-    z-index: 1;
     -webkit-backdrop-filter: blur(var(--wly-blur-bar));
     backdrop-filter: blur(var(--wly-blur-bar));
     border-top: 1px solid var(--wly-glass-border);
@@ -215,47 +283,42 @@
     letter-spacing: 0.04em;
   }
 
-  ul.footer li a[aria-disabled="true"] {
-    cursor: default;
-  }
-
   ul.footer {
-    position: fixed;
-    justify-content: center;
-    align-items: baseline;
-    margin-bottom: -42%;
-    display: flex;
+    position: relative;
     z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 32px auto 0;
   }
 
   ul.footer li {
-    position: relative;
     list-style: none;
-    margin: 10px;
+  }
+
+  ul.footer li a[aria-disabled="true"] {
+    cursor: default;
   }
 
   /* No backdrop-filter on the icon tiles: the blurred .footerbase beneath already provides it */
   ul.footer li a {
     position: relative;
-    width: 60px;
-    height: 60px;
+    width: 52px;
+    height: 52px;
     border-radius: var(--wly-radius-lg);
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
     color: var(--wly-ink);
-    font-size: 2em;
+    font-size: 1.6rem;
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-right: 1px solid var(--wly-glass-border-faint);
     border-bottom: 1px solid var(--wly-glass-border-faint);
     box-shadow: 0 5px 45px rgba(0, 0, 0, 0.1);
     transition: 0.5s;
     overflow: hidden;
-  }
-
-  ul.footer li a:hover {
-    transform: translateY(-20px);
   }
 
   ul.footer li a::before {
@@ -270,8 +333,186 @@
     transition: 1s;
   }
 
-  ul.footer li a:hover::before {
-    transform: skewX(45deg) translateX(-150px);
+  @media (hover: hover) {
+    ul.footer li a:hover {
+      transform: translateY(-20px);
+    }
+
+    ul.footer li a:hover::before {
+      transform: skewX(45deg) translateX(-150px);
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  @layer components {
+    ul.footer {
+      gap: 8px;
+    }
+
+    ul.footer li a {
+      width: 46px;
+      height: 46px;
+      font-size: 1.4rem;
+    }
+  }
+}
+
+/* ---- Desktop rail (>= 900px): floating logo + tagline, vertical nav pinned left, footer bar floats ---- */
+@media (min-width: 900px) {
+  @layer components {
+    .site-chrome {
+      display: contents;
+    }
+
+    .spinner {
+      left: 28px;
+      top: 33px;
+    }
+
+    a.image {
+      position: fixed;
+      z-index: 20;
+      top: calc(1% + 20px);
+      left: calc(6% + 20px);
+      width: 180px;
+      height: 45px;
+    }
+
+    .tagline {
+      display: block;
+      position: fixed;
+      z-index: 20;
+      top: calc(1% + 20px + 45px + 2px);
+      left: calc(6% + 10px);
+      padding: 2px 12px;
+      border-radius: var(--wly-radius-pill);
+      background: var(--wly-glass-text); /* no pane behind it on desktop: give the small text its own */
+    }
+
+    .nav-toggle {
+      display: none;
+    }
+
+    .site-nav,
+    .site-nav.is-open {
+      position: fixed;
+      z-index: 20;
+      top: 50%;
+      right: auto;
+      left: 36px;
+      width: auto;
+      translate: 0 -50%;
+      transform: none;
+      opacity: 1;
+      visibility: visible;
+      transition: none;
+      border: 0;
+      border-radius: var(--wly-radius-lg);
+      background: none;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+
+    ul.header {
+      display: block;
+      padding: 0;
+    }
+
+    ul.header li a {
+      display: flex;
+      min-height: 0;
+      padding: 15px;
+      gap: 0;
+      border-radius: 0;
+      -webkit-backdrop-filter: blur(var(--wly-blur-nav));
+      backdrop-filter: blur(var(--wly-blur-nav));
+    }
+
+    ul.header li a[aria-current="page"] {
+      background: none;
+    }
+
+    ul.header li a ion-icon {
+      font-size: 2em;
+      opacity: 0.55; /* inactive items stay legible (was 0.25) */
+      transition: 0.25s;
+    }
+
+    ul.header li a[aria-current="page"] ion-icon {
+      opacity: 1;
+    }
+
+    .nav-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    /* Active-item marker: JS sizes/positions it over the current <li>; the tile is centred in it */
+    #marker {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: 0.5s;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    #marker::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 30px;
+      height: 30px;
+      border-radius: var(--wly-radius-md);
+    }
+
+    .site-nav:has(li:nth-child(1) > a[aria-current="page"]) #marker::before {
+      background: var(--wly-marker-1);
+      box-shadow: var(--wly-glow-amber);
+    }
+
+    .site-nav:has(li:nth-child(2) > a[aria-current="page"]) #marker::before {
+      background: var(--wly-marker-2);
+      box-shadow: 0 0 15px var(--wly-marker-2), 0 0 30px var(--wly-marker-2), 0 0 45px var(--wly-marker-2), 0 0 60px var(--wly-marker-2);
+    }
+
+    .site-nav:has(li:nth-child(3) > a[aria-current="page"]) #marker::before {
+      background: var(--wly-marker-3);
+      box-shadow: 0 0 15px var(--wly-marker-3), 0 0 30px var(--wly-marker-3), 0 0 45px var(--wly-marker-3), 0 0 60px var(--wly-marker-3);
+    }
+
+    .site-nav:has(li:nth-child(4) > a[aria-current="page"]) #marker::before {
+      background: var(--wly-marker-4);
+      box-shadow: var(--wly-glow-magenta);
+    }
+
+    .site-nav:has(li:nth-child(5) > a[aria-current="page"]) #marker::before {
+      background: var(--wly-marker-5);
+      box-shadow: 0 0 15px var(--wly-marker-5), 0 0 30px var(--wly-marker-5), 0 0 45px var(--wly-marker-5), 0 0 60px var(--wly-marker-5);
+    }
+
+    .footerbase {
+      bottom: 15px;
+      height: 60px;
+    }
+
+    ul.footer {
+      gap: 20px;
+    }
+
+    ul.footer li a {
+      width: 60px;
+      height: 60px;
+      font-size: 2em;
+    }
   }
 }
 
@@ -311,9 +552,11 @@
   }
 }
 
-/* Blur fallbacks for chrome surfaces */
+/* Blur fallbacks for chrome surfaces: the dark text glass is already opaque enough to stand alone */
 @media (prefers-reduced-transparency: reduce) {
   @layer components {
+    .site-chrome,
+    .site-nav,
     ul.header li a,
     .footerbase {
       -webkit-backdrop-filter: none;
@@ -325,7 +568,8 @@
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   @layer components {
-    ul.header li a,
+    .site-chrome,
+    .site-nav,
     .footerbase {
       background: var(--wly-glass-solid);
     }

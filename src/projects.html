@@ -2,17 +2,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sample project concepts from Webly, a fictional web design studio.">
-    <title>Webly – Projects</title>
-    <link rel="stylesheet" type="text/css" href="css/base.css">
-    <link rel="stylesheet" type="text/css" href="css/chrome.css">
-    <link rel="stylesheet" type="text/css" href="css/visual.css">
-    <link rel="stylesheet" type="text/css" href="css/projects.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
+    <%= head({
+        title: 'Projects | Webly',
+        description: 'Sample project concepts from Webly, a fictional web design studio: portfolio, tech, commerce, wellness, hospitality and editorial sites.',
+        file: 'projects.html',
+        css: ['visual', 'projects'],
+    }) %>
 </head>
 
 <body>
@@ -23,14 +18,14 @@
         pass img: { name, alt, w, h } to visual() and drop tech-480/800/1200.webp into
         src/assets/images/. alt text is required. Without img, the generative art is shown.
     -->
-    <main class="container">
+    <main class="container" id="main" tabindex="-1">
         <header class="page-title">
             <h1>Our Projects</h1>
             <p>Sample concepts from a fictional studio</p>
         </header>
 
         <section class="project-grid" aria-label="Project categories">
-            <article class="card" data-tilt data-tilt-glare data-tilt-max-glare="1">
+            <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="1">
                 <%= visual({ a: 'var(--wly-accent-magenta)', b: 'var(--wly-accent-cyan)', c: 'var(--wly-accent-amber)', angle: '20deg' }) %>
                 <div class="card-body">
                     <span class="chip">Concept</span>
@@ -39,7 +34,7 @@
                 </div>
             </article>
 
-            <article class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+            <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
                 <%= visual({ a: 'var(--wly-accent-cyan)', b: 'var(--wly-accent-indigo)', c: 'var(--wly-accent-magenta)', angle: '140deg' }) %>
                 <div class="card-body">
                     <span class="chip">Concept</span>
@@ -48,7 +43,7 @@
                 </div>
             </article>
 
-            <article class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+            <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
                 <%= visual({ a: 'var(--wly-accent-amber)', b: 'var(--wly-accent-coral)', c: 'var(--wly-accent-purple)', angle: '250deg' }) %>
                 <div class="card-body">
                     <span class="chip">Concept</span>
@@ -57,7 +52,7 @@
                 </div>
             </article>
 
-            <article class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+            <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
                 <%= visual({ a: 'var(--wly-accent-lime)', b: 'var(--wly-accent-cyan)', c: 'var(--wly-accent-indigo)', angle: '60deg' }) %>
                 <div class="card-body">
                     <span class="chip">Concept</span>
@@ -66,7 +61,7 @@
                 </div>
             </article>
 
-            <article class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+            <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
                 <%= visual({ a: 'var(--wly-accent-coral)', b: 'var(--wly-accent-amber)', c: 'var(--wly-accent-magenta)', angle: '300deg' }) %>
                 <div class="card-body">
                     <span class="chip">Concept</span>
@@ -75,7 +70,7 @@
                 </div>
             </article>
 
-            <article class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+            <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
                 <%= visual({ a: 'var(--wly-accent-indigo)', b: 'var(--wly-accent-magenta)', c: 'var(--wly-accent-cyan)', angle: '190deg' }) %>
                 <div class="card-body">
                     <span class="chip">Concept</span>

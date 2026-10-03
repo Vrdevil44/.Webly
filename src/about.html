@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="About Webly, a fictional web design studio focused on fast, accessible, beautifully crafted websites.">
-    <title>Webly – About</title>
-    <link rel="stylesheet" type="text/css" href="css/base.css">
-    <link rel="stylesheet" type="text/css" href="css/chrome.css">
-    <link rel="stylesheet" type="text/css" href="css/visual.css">
-    <link rel="stylesheet" type="text/css" href="css/about.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
+    <%= head({
+        title: 'About | Webly',
+        description: 'About Webly, a fictional web design studio focused on fast, accessible, beautifully crafted websites with a distinctive glass-and-gradient look.',
+        file: 'about.html',
+        css: ['visual', 'about'],
+    }) %>
 </head>
 <body>
     <%= chromeTop %>
+    <main id="main" tabindex="-1">
     <section>
         <div class="container">
             <div class="content">
-                <h2>ABOUT US</h2>
+                <h1>ABOUT US</h1>
                 <p>Webly is a fictional web design studio, imagined as a small team that cares about craft. We design and build
                 websites that are fast, accessible and a pleasure to use, with a distinctive glass-and-gradient look.</p>
                 <p>Our imagined process is simple: understand the goal, design in the open, then build and launch with care.
@@ -31,6 +27,7 @@
             </div>
         </div>
     </section>
+    </main>
     <%= socialFooter %>
     <%= chromeBottom %>
 </body>

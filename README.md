@@ -27,7 +27,8 @@ zero webpack errors) and only then swaps it into `docs/`. If anything fails, `do
 Hand-placed files in `docs/` (`CNAME`, `.nojekyll`, `404.html`, `robots.txt`) are carried over on every swap.
 Asset URLs are relative, so the site works under the `/.Webly/` project path, on a custom domain, or locally.
 
-Pages are webpack + html-webpack-plugin templates in `src/`; shared chrome lives in `src/partials/`.
+Pages are webpack + html-webpack-plugin templates in `src/`; shared chrome lives in `src/partials/` (`head.html` renders the per-page title, description, OG/Twitter tags and inline favicon from one `head({...})` call; the favicon is authored once in `src/assets/favicon.svg`; the social card is `src/assets/og.png`, 1200x630).
+Tilt cards are marked `data-tilt-card` (not `data-tilt`, which vanilla-tilt would auto-init past the reduced-motion guard).
 `docs/` is committed so GitHub Pages can serve it from the `/docs` folder.
 
 ## Adding images

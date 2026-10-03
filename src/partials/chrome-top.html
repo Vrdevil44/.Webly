@@ -1,4 +1,6 @@
-    <div class="spinner"></div>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="spinner" aria-hidden="true"></div>
+    <div class="site-chrome">
     <a class="image" href="index.html" aria-label="Webly home">
         <svg class="logo" viewBox="0 0 190 52" role="img" aria-labelledby="logo-title" xmlns="http://www.w3.org/2000/svg">
             <title id="logo-title">Webly</title>
@@ -40,13 +42,19 @@
         </svg>
     </a>
     <div class="tagline">Design in a Web-manner.</div>
-    <ul class="header">
-        <li><a href="index.html" aria-label="Home"<%= page === 'index' ? ' aria-current="page"' : '' %>><ion-icon name="home-outline"></ion-icon></a></li>
-        <li><a href="login.html" aria-label="Login"<%= page === 'login' ? ' aria-current="page"' : '' %>><ion-icon name="person-outline"></ion-icon></a></li>
-        <li><a href="projects.html" aria-label="Projects"<%= page === 'projects' ? ' aria-current="page"' : '' %>><ion-icon name="add-circle-outline"></ion-icon></a></li>
-        <li><a href="about.html" aria-label="About"<%= page === 'about' ? ' aria-current="page"' : '' %>><ion-icon name="people-outline"></ion-icon></a></li>
-        <li><a href="reviews.html" aria-label="Reviews"<%= page === 'reviews' ? ' aria-current="page"' : '' %>><ion-icon name="chatbubble-outline"></ion-icon></a></li>
-        <div id="marker"></div>
-    </ul>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <ul class="header">
+            <li><a href="index.html" aria-label="Home"<%= page === 'index' ? ' aria-current="page"' : '' %>><ion-icon name="home-outline" aria-hidden="true"></ion-icon><span class="nav-label" aria-hidden="true">Home</span></a></li>
+            <li><a href="login.html" aria-label="Login"<%= page === 'login' ? ' aria-current="page"' : '' %>><ion-icon name="person-outline" aria-hidden="true"></ion-icon><span class="nav-label" aria-hidden="true">Login</span></a></li>
+            <li><a href="projects.html" aria-label="Projects"<%= page === 'projects' ? ' aria-current="page"' : '' %>><ion-icon name="add-circle-outline" aria-hidden="true"></ion-icon><span class="nav-label" aria-hidden="true">Projects</span></a></li>
+            <li><a href="about.html" aria-label="About"<%= page === 'about' ? ' aria-current="page"' : '' %>><ion-icon name="people-outline" aria-hidden="true"></ion-icon><span class="nav-label" aria-hidden="true">About</span></a></li>
+            <li><a href="reviews.html" aria-label="Reviews"<%= page === 'reviews' ? ' aria-current="page"' : '' %>><ion-icon name="chatbubble-outline" aria-hidden="true"></ion-icon><span class="nav-label" aria-hidden="true">Reviews</span></a></li>
+        </ul>
+        <span id="marker" aria-hidden="true"></span>
+    </nav>
+    </div>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

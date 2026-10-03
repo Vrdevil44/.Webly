@@ -4,7 +4,8 @@
     {
         position: relative;
         width: min(960px, 100%);
-        padding: 20px 0 140px; /* bottom room so the fixed footer never covers the last row */
+        margin-inline: auto;
+        padding: 20px 0 0;
         z-index: 1;
     }
 
@@ -12,11 +13,11 @@
     {
         width: min(600px, 100%);
         margin: 0 auto 30px;
-        padding: 22px 30px;
+        padding: 22px clamp(16px, 4vw, 30px);
         text-align: center;
         color: var(--wly-ink);
         border-radius: 15px;
-        background: var(--wly-glass-tint-md);
+        background: var(--wly-glass-text);
         box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
         border-top: 1px solid var(--wly-glass-border);
         border-left: 1px solid var(--wly-glass-border);
@@ -25,20 +26,21 @@
     }
     .page-title h1
     {
-        font-size: 2.6em;
-        font-weight: 600;
+        font-size: var(--wly-fs-title);
+        line-height: 1.15;
+        font-weight: 700;
     }
     .page-title p
     {
         margin-top: 4px;
         color: var(--wly-muted);
-        font-weight: 300;
+        font-weight: 400;
     }
 
     .review-grid
     {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
         gap: 30px;
     }
 
@@ -47,10 +49,10 @@
         display: flex;
         flex-direction: column;
         gap: 14px;
-        padding: 28px;
+        padding: clamp(18px, 5vw, 28px);
         border-radius: 20px;
         color: var(--wly-ink);
-        background: var(--wly-glass-tint-md);
+        background: var(--wly-glass-text);
         box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.35);
         border: 1px solid var(--wly-glass-border-soft);
         border-top: 1px solid var(--wly-glass-border);
@@ -67,7 +69,7 @@
     .card blockquote p
     {
         font-size: 1.05rem;
-        font-weight: 300;
+        font-weight: 400;
         line-height: 1.6;
     }
     .card figcaption
@@ -108,7 +110,12 @@
 
     .sample-note
     {
-        margin-top: 36px;
+        width: fit-content;
+        max-width: 100%;
+        margin: 36px auto 0;
+        padding: 8px 18px;
+        border-radius: var(--wly-radius-pill);
+        background: var(--wly-glass-text);
         text-align: center;
         font-size: var(--wly-font-size-sm);
         color: var(--wly-muted);

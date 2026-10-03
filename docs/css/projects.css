@@ -4,7 +4,8 @@
     {
         position: relative;
         width: min(960px, 100%);
-        padding: 20px 0 140px; /* bottom room so the fixed footer never covers the last row */
+        margin-inline: auto;
+        padding: 20px 0 0;
         z-index: 1;
     }
 
@@ -12,11 +13,11 @@
     {
         width: min(600px, 100%);
         margin: 0 auto 30px;
-        padding: 22px 30px;
+        padding: 22px clamp(16px, 4vw, 30px);
         text-align: center;
         color: var(--wly-ink);
         border-radius: 15px;
-        background: var(--wly-glass-tint-md);
+        background: var(--wly-glass-text);
         box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
         border-top: 1px solid var(--wly-glass-border);
         border-left: 1px solid var(--wly-glass-border);
@@ -25,22 +26,30 @@
     }
     .page-title h1
     {
-        font-size: 2.6em;
-        font-weight: 600;
+        font-size: var(--wly-fs-title);
+        line-height: 1.15;
+        font-weight: 700;
     }
     .page-title p
     {
         margin-top: 4px;
         color: var(--wly-muted);
-        font-weight: 300;
+        font-weight: 400;
     }
 
     .project-grid
     {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 300px));
+        grid-template-columns: minmax(0, 1fr); /* mobile: one column */
         justify-content: center;
         gap: 30px;
+    }
+    @media (min-width: 640px)
+    {
+        .project-grid
+        {
+            grid-template-columns: repeat(auto-fit, minmax(260px, 300px));
+        }
     }
 
     .card
@@ -48,7 +57,7 @@
         position: relative;
         padding: 12px 12px 22px;
         border-radius: 15px;
-        background: var(--wly-glass-tint-md);
+        background: var(--wly-glass-text);
         box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
         border-top: 1px solid var(--wly-glass-border);
         border-left: 1px solid var(--wly-glass-border);
@@ -75,28 +84,33 @@
         letter-spacing: 0.1em;
         text-transform: uppercase;
         border-radius: var(--wly-radius-pill);
-        background: var(--wly-glass-tint-lg);
+        background: rgba(12, 2, 32, 0.5); /* dark pill: light text stays >=4.5:1 even on the brightest card backdrop */
         border: 1px solid var(--wly-glass-border-soft);
         -webkit-backdrop-filter: blur(var(--wly-blur-chip));
         backdrop-filter: blur(var(--wly-blur-chip));
     }
     .card-body h2
     {
-        font-size: 1.3rem;
+        font-size: var(--wly-fs-h3);
         font-weight: 600;
         margin-bottom: 6px;
     }
     .card-body p
     {
-        font-size: 0.9rem;
-        font-weight: 300;
+        font-size: 0.95rem;
+        font-weight: 400;
         line-height: 1.5;
         color: var(--wly-muted);
     }
 
     .sample-note
     {
-        margin-top: 36px;
+        width: fit-content;
+        max-width: 100%;
+        margin: 36px auto 0;
+        padding: 8px 18px;
+        border-radius: var(--wly-radius-pill);
+        background: var(--wly-glass-text);
         text-align: center;
         font-size: var(--wly-font-size-sm);
         color: var(--wly-muted);

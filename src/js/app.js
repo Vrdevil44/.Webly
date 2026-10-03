@@ -3,6 +3,8 @@ import VanillaTilt from 'vanilla-tilt';
 document.documentElement.classList.add('js');
 
 const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Tilt needs a hovering pointer; on touch it would only fire on tap and fight scrolling
+const canHover = () => window.matchMedia('(hover: hover)').matches;
 
 class App {
   constructor() {
@@ -11,6 +13,7 @@ class App {
 
   init() {
     this.setupLoader();
+    this.setupNavToggle();
     this.setupNavMarker();
     this.setupTilt();
     this.setupReveal();
@@ -35,9 +38,42 @@ class App {
     }
   }
 
+  // Below 900px the nav is a disclosure menu: button[aria-expanded] toggles it, focus moves in on open,
+  // Escape / outside click / tabbing away close it (Escape returns focus to the button)
+  setupNavToggle() {
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.getElementById('site-nav');
+    if (!toggle || !nav) return;
+
+    const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
+    const setOpen = (open, restoreFocus = false) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      nav.classList.toggle('is-open', open);
+      if (open) (nav.querySelector('a[aria-current="page"]') || nav.querySelector('a')).focus();
+      else if (restoreFocus) toggle.focus();
+    };
+
+    toggle.addEventListener('click', () => setOpen(!isOpen()));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen()) {
+        e.preventDefault();
+        setOpen(false, true);
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (isOpen() && !nav.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+    });
+    nav.addEventListener('focusout', (e) => {
+      const next = e.relatedTarget;
+      if (isOpen() && next && !nav.contains(next) && next !== toggle) setOpen(false);
+    });
+    // Crossing into the desktop rail resets the disclosure state
+    window.matchMedia('(min-width: 900px)').addEventListener('change', () => setOpen(false));
+  }
+
   // Active state comes from aria-current in the markup; JS only positions and glides the marker
   setupNavMarker() {
-    const nav = document.querySelector('ul.header');
+    const nav = document.querySelector('.site-nav');
     const marker = nav && nav.querySelector('#marker');
     if (!marker) return;
 
@@ -46,6 +82,8 @@ class App {
     const place = (li) => {
       marker.style.left = `${li.offsetLeft}px`;
       marker.style.top = `${li.offsetTop}px`;
+      marker.style.width = `${li.offsetWidth}px`;
+      marker.style.height = `${li.offsetHeight}px`;
     };
 
     items.forEach(li => li.addEventListener('click', () => place(li)));
@@ -64,10 +102,12 @@ class App {
   }
 
   setupTilt() {
-    if (prefersReducedMotion()) return;
+    if (prefersReducedMotion() || !canHover()) return;
 
-    // Project cards: per-card glare strength comes from their data-tilt-* attributes
-    VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {
+    // Project cards: per-card glare strength comes from their data-tilt-* attributes.
+    // Marked data-tilt-card, not data-tilt: vanilla-tilt auto-inits any [data-tilt] on load,
+    // which would bypass the reduced-motion / no-hover guard above.
+    VanillaTilt.init(document.querySelectorAll('[data-tilt-card]'), {
       max: 25,
       speed: 400,
       glare: true,

@@ -2,20 +2,19 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Webly is a fictional web design studio: glassy, gradient-rich websites built to be fast and accessible.">
-    <title>Webly – Home</title>
-    <link rel="stylesheet" type="text/css" href="css/base.css">
-    <link rel="stylesheet" type="text/css" href="css/chrome.css">
-    <link rel="stylesheet" type="text/css" href="css/home.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <%= head({
+        title: 'Webly | Design in a Web-manner',
+        description: 'Webly is a fictional web design studio: glassy, gradient-rich websites that are fast, accessible and a pleasure to use. Explore our work, team and reviews.',
+        file: '',
+        css: ['home'],
+    }) %>
 </head>
 
 <body>
     <%= chromeTop %>
 
+    <main id="main" tabindex="-1">
+    <h1 class="sr-only">Webly: design in a web-manner</h1>
     <div class="container2">
         <div class="box">
             <span></span>
@@ -41,8 +40,9 @@
                 <a href="reviews.html">Read More</a>
             </div>
         </div>
-        <%= socialFooter %>
     </div>
+    </main>
+    <%= socialFooter %>
     <%= chromeBottom %>
 </body>
 
