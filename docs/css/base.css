@@ -1,110 +1,104 @@
-:root {
-  /* Colors */
-  --primary-color: #4158D0;
-  --secondary-color: #C850C0;
-  --accent-color: #FFCC70;
-  --text-color: #333;
-  --light-text: #fff;
-  --background-color: #f5f5f5;
-  
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 2rem;
-  --spacing-xl: 4rem;
-  
-  /* Typography */
-  --font-family: 'Poppins', sans-serif;
-  --font-size-sm: 0.875rem;
-  --font-size-md: 1rem;
-  --font-size-lg: 1.25rem;
-  --font-size-xl: 2rem;
-  
-  /* Transitions */
-  --transition-fast: 0.2s ease;
-  --transition-normal: 0.3s ease;
-  --transition-slow: 0.5s ease;
-  
-  /* Shadows */
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  
-  /* Border Radius */
-  --border-radius-sm: 4px;
-  --border-radius-md: 8px;
-  --border-radius-lg: 16px;
-  --border-radius-full: 9999px;
+/* Webly design tokens + page backdrop (loaded first, before chrome.css and the page css) */
+@layer tokens, base, components, pages;
+
+@layer tokens {
+  :root {
+    /* Page gradient stops (deep-space purple -> magenta -> white) */
+    --wly-bg-0: #000;
+    --wly-bg-1: rgb(56, 4, 105);
+    --wly-bg-2: #7536db;
+    --wly-bg-3: rgb(193, 107, 233);
+    --wly-bg-4: #fff;
+    --wly-bg-gradient: linear-gradient(135deg, var(--wly-bg-0), var(--wly-bg-1), var(--wly-bg-2), var(--wly-bg-3), var(--wly-bg-4));
+    --wly-bg-speed: 8s;
+
+    /* Backdrop blobs */
+    --wly-blob-a: linear-gradient(#f00, #f0f);
+    --wly-blob-b: linear-gradient(135deg, #34025e, #fc3333, #fff);
+
+    /* Ink */
+    --wly-ink: #fff;
+    --wly-ink-dark: #111;
+    --wly-muted: rgba(255, 255, 255, 0.7);
+
+    /* Glass surfaces */
+    --wly-glass-tint: rgba(255, 255, 255, 0.05);
+    --wly-glass-tint-md: rgba(255, 255, 255, 0.1);
+    --wly-glass-tint-lg: rgba(255, 255, 255, 0.2);
+    --wly-glass-border: rgba(255, 255, 255, 0.5);
+    --wly-glass-border-soft: rgba(255, 255, 255, 0.25);
+    --wly-glass-border-faint: rgba(255, 255, 255, 0.2);
+    --wly-glass-solid: rgba(40, 8, 80, 0.72); /* fallback when blur is unavailable / transparency reduced */
+    --wly-glass-shadow: 0 5px 45px rgba(0, 0, 0, 0.25);
+    --wly-blur-nav: 15px;
+    --wly-blur-card: 10px;
+    --wly-blur-bar: 5px;
+    --wly-blur-chip: 3px;
+
+    /* Accents */
+    --wly-accent-magenta: #df2fff;
+    --wly-accent-purple: #7536db;
+    --wly-accent-amber: #ff9900;
+    --wly-accent-cyan: #00d0ff;
+    --wly-glow-magenta: 0 0 15px #df2fff, 0 0 30px #df2fff, 0 0 45px #df2fff, 0 0 60px #df2fff;
+    --wly-glow-purple: 0 0 15px #7536db, 0 0 30px #7536db, 0 0 45px #7536db, 0 0 60px #7536db;
+    --wly-glow-amber: 0 0 20px #ff9900, 0 0 30px #ff9900, 0 0 45px #ff9900, 0 0 60px #ff9900;
+    --wly-glow-cyan: 0 0 15px #00d0ff, 0 0 30px #00d0ff, 0 0 45px #00d0ff, 0 0 60px #00d0ff;
+
+    /* Nav marker colours, one per nav item */
+    --wly-marker-1: var(--wly-accent-amber);
+    --wly-marker-2: #ff0;
+    --wly-marker-3: #0f0;
+    --wly-marker-4: var(--wly-accent-magenta);
+    --wly-marker-5: #ff308f;
+
+    /* Type */
+    --wly-font-body: 'Poppins', sans-serif;
+    --wly-font-size-sm: small;
+
+    /* Spacing */
+    --wly-space-1: 5px;
+    --wly-space-2: 10px;
+    --wly-space-3: 15px;
+    --wly-space-4: 20px;
+    --wly-space-5: 40px;
+
+    /* Radius */
+    --wly-radius-sm: 4px;
+    --wly-radius-md: 8px;
+    --wly-radius-lg: 10px;
+    --wly-radius-xl: 20px;
+    --wly-radius-pill: 30px;
+  }
 }
 
-/* Reset */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-}
+@layer base {
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--wly-blob-a);
+    clip-path: circle(30% at right 70%);
+  }
 
-body {
-  font-family: var(--font-family);
-  line-height: 1.5;
-  color: var(--text-color);
-  background-color: var(--background-color);
-  overflow-x: hidden;
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--wly-blob-b);
+    background-size: 50% 50%;
+    clip-path: circle(20% at 10% 10%);
+  }
 }
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-  transition: color var(--transition-fast);
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  background: none;
-  font-family: inherit;
-}
-
-/* Utility Classes */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--spacing-md);
-}
-
-.flex {
-  display: flex;
-}
-
-.grid {
-  display: grid;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-} 
