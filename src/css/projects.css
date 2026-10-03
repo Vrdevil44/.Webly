@@ -52,6 +52,11 @@
         }
     }
 
+    .project-grid > .reveal > .card
+    {
+        height: 100%; /* the reveal wrapper is the grid item; keep the card filling it */
+    }
+
     .card
     {
         position: relative;

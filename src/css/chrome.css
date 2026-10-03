@@ -516,12 +516,13 @@
   }
 }
 
-/* Scroll reveal: content stays visible unless JS is running */
+/* Scroll reveal: content stays visible unless JS is running. Stagger siblings with style="--reveal-delay:.1s" */
 @layer components {
   html.js .reveal {
     opacity: 0;
     transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: var(--reveal-delay, 0s);
   }
 
   html.js .reveal.is-visible {
@@ -537,6 +538,113 @@
       transform: none;
       transition: none;
     }
+  }
+}
+
+/* Gradient display text (h1/h2 only; always on a glass pane). Solid white is the fallback; the gradient
+   is layered on only where background-clip:text works, and drops out in forced-colours. */
+@layer components {
+  .gradient-text {
+    color: var(--wly-ink);
+  }
+
+  @supports ((background-clip: text) or (-webkit-background-clip: text)) {
+    .gradient-text {
+      background-image: var(--wly-text-grad);
+      background-size: 100% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      /* box-decoration-break keeps the gradient continuous across wrapped lines */
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+  }
+}
+
+@media (forced-colors: active) {
+  @layer components {
+    .gradient-text {
+      background: none;
+      -webkit-text-fill-color: currentColor;
+      color: CanvasText;
+    }
+  }
+}
+
+/* Cursor glow on glass cards: a soft highlight that follows a fine pointer. Position comes from
+   --glow-x/--glow-y, set by JS on the hovered card only. Peak alpha is kept low so text contrast holds.
+   Tilt cards are excluded: they already carry their own glare. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  @layer components {
+    .glass-card:not([data-tilt-card]) {
+      position: relative;
+    }
+
+    .glass-card:not([data-tilt-card])::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      background: radial-gradient(
+        320px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        rgba(255, 255, 255, 0.1),
+        rgba(223, 47, 255, 0.08) 45%,
+        transparent 72%
+      );
+    }
+
+    .glass-card.is-glowing::after {
+      opacity: 1;
+    }
+  }
+}
+
+/* The chrome persists across page navigations instead of cross-fading with the content. Below 900px the bar
+   is one box; from 900px .site-chrome is display:contents, so its pieces are named individually. */
+@layer components {
+  .site-chrome {
+    view-transition-name: site-chrome;
+  }
+
+  .footerbase {
+    view-transition-name: site-footer;
+  }
+
+  ul.footer {
+    view-transition-name: site-social;
+  }
+}
+
+@media (min-width: 900px) {
+  @layer components {
+    .site-chrome {
+      view-transition-name: none;
+    }
+
+    a.image {
+      view-transition-name: site-logo;
+    }
+
+    .tagline {
+      view-transition-name: site-tagline;
+    }
+
+    .site-nav {
+      view-transition-name: site-nav;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.28s;
+    animation-timing-function: ease;
   }
 }
 

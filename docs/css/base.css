@@ -47,6 +47,9 @@
     --wly-accent-coral: #ff5c8a;
     --wly-accent-lime: #7dff6b;
     --wly-accent-indigo: #5b6cff;
+    /* Display-text gradient: pastel stops only. Contrast-checked >=3:1 (large text) against the worst-case
+       backdrop: pure white behind --wly-glass-text, with the card glow at peak. Saturated accents fail, so they stay out. */
+    --wly-text-grad: linear-gradient(100deg, #fff 0%, #ffbdf0 38%, #a3e7ff 72%, #ffdc94 100%);
     --wly-art-base: #1a0540; /* deep backdrop under generative art */
     --wly-glow-magenta: 0 0 15px #df2fff, 0 0 30px #df2fff, 0 0 45px #df2fff, 0 0 60px #df2fff;
     --wly-glow-purple: 0 0 15px #7536db, 0 0 30px #7536db, 0 0 45px #7536db, 0 0 60px #7536db;
@@ -181,6 +184,12 @@
   box-shadow: none;
 }
 
+/* Cross-document page transitions: progressive enhancement, no JS. Unsupported browsers navigate normally.
+   Only the page content cross-fades; the chrome is a named group, so it stays put instead of flashing. */
+@view-transition {
+  navigation: auto;
+}
+
 /* Motion: kill every infinite animation (gradient shift, spinner, floats, shine sweeps) and all transitions */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -197,6 +206,12 @@
   body {
     animation: none;
     background-position: 35% 50%;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 
   .spinner,

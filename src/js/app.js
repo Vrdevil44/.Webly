@@ -5,6 +5,8 @@ document.documentElement.classList.add('js');
 const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Tilt needs a hovering pointer; on touch it would only fire on tap and fight scrolling
 const canHover = () => window.matchMedia('(hover: hover)').matches;
+// The cursor glow is a mouse/pen effect; touch-first devices never get it
+const hasFinePointer = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 class App {
   constructor() {
@@ -17,6 +19,7 @@ class App {
     this.setupNavMarker();
     this.setupTilt();
     this.setupReveal();
+    this.setupGlow();
     this.setupVisuals();
     this.setupDemoForm();
   }
@@ -149,6 +152,52 @@ class App {
     });
     form.querySelectorAll('[data-demo-notice]').forEach((btn) => {
       btn.addEventListener('click', () => show(btn.dataset.demoNotice));
+    });
+  }
+
+  // Soft highlight under the pointer on glass cards. Only the hovered card does any work: its rect is
+  // cached on pointerenter (refreshed after a scroll) and the custom props are written once per frame.
+  // Tilt cards are skipped; they carry their own glare.
+  setupGlow() {
+    if (prefersReducedMotion() || !hasFinePointer()) return;
+
+    document.querySelectorAll('.glass-card:not([data-tilt-card])').forEach((card) => {
+      let rect = null;
+      let x = 0;
+      let y = 0;
+      let frame = 0;
+
+      const paint = () => {
+        frame = 0;
+        if (!rect) rect = card.getBoundingClientRect();
+        card.style.setProperty('--glow-x', `${x - rect.left}px`);
+        card.style.setProperty('--glow-y', `${y - rect.top}px`);
+      };
+      const stale = () => { rect = null; };
+
+      card.addEventListener('pointerenter', (e) => {
+        if (e.pointerType === 'touch') return;
+        rect = card.getBoundingClientRect();
+        x = e.clientX;
+        y = e.clientY;
+        card.classList.add('is-glowing');
+        window.addEventListener('scroll', stale, { passive: true });
+        if (!frame) frame = requestAnimationFrame(paint);
+      });
+
+      card.addEventListener('pointermove', (e) => {
+        x = e.clientX;
+        y = e.clientY;
+        if (!frame) frame = requestAnimationFrame(paint);
+      });
+
+      card.addEventListener('pointerleave', () => {
+        cancelAnimationFrame(frame);
+        frame = 0;
+        card.classList.remove('is-glowing');
+        window.removeEventListener('scroll', stale);
+        rect = null;
+      });
     });
   }
 

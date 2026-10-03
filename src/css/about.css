@@ -82,6 +82,13 @@
 
     @media (min-width: 1100px)
     {
+        /* Beside the text (above the fold) from 1100px: never fade in */
+        html.js .imgBx.reveal
+        {
+            opacity: 1;
+            transform: none;
+            transition: none;
+        }
         .container
         {
             flex-direction: row;

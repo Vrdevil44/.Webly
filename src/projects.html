@@ -19,13 +19,13 @@
         src/assets/images/. alt text is required. Without img, the generative art is shown.
     -->
     <main class="container" id="main" tabindex="-1">
-        <header class="page-title">
-            <h1>Our Projects</h1>
+        <header class="page-title glass-card">
+            <h1 class="gradient-text">Our Projects</h1>
             <p>Sample concepts from a fictional studio</p>
         </header>
 
         <section class="project-grid" aria-label="Project categories">
-            <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="1">
+                <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="1">
                 <%= visual({ a: 'var(--wly-accent-magenta)', b: 'var(--wly-accent-cyan)', c: 'var(--wly-accent-amber)', angle: '20deg' }) %>
                 <div class="card-body">
                     <span class="chip">Concept</span>
@@ -52,35 +52,41 @@
                 </div>
             </article>
 
-            <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
-                <%= visual({ a: 'var(--wly-accent-lime)', b: 'var(--wly-accent-cyan)', c: 'var(--wly-accent-indigo)', angle: '60deg' }) %>
-                <div class="card-body">
-                    <span class="chip">Concept</span>
-                    <h2>Wellness Projects</h2>
-                    <p>Booking-first sites for studios and clinics, with a soft palette and easy scheduling.</p>
-                </div>
-            </article>
+            <div class="reveal" style="--reveal-delay:0s">
+                <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
+                    <%= visual({ a: 'var(--wly-accent-lime)', b: 'var(--wly-accent-cyan)', c: 'var(--wly-accent-indigo)', angle: '60deg' }) %>
+                    <div class="card-body">
+                        <span class="chip">Concept</span>
+                        <h2>Wellness Projects</h2>
+                        <p>Booking-first sites for studios and clinics, with a soft palette and easy scheduling.</p>
+                    </div>
+                </article>
+            </div>
 
-            <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
-                <%= visual({ a: 'var(--wly-accent-coral)', b: 'var(--wly-accent-amber)', c: 'var(--wly-accent-magenta)', angle: '300deg' }) %>
-                <div class="card-body">
-                    <span class="chip">Concept</span>
-                    <h2>Hospitality Projects</h2>
-                    <p>Menus, reservations and atmosphere for restaurants and boutique stays.</p>
-                </div>
-            </article>
+            <div class="reveal" style="--reveal-delay:.1s">
+                <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
+                    <%= visual({ a: 'var(--wly-accent-coral)', b: 'var(--wly-accent-amber)', c: 'var(--wly-accent-magenta)', angle: '300deg' }) %>
+                    <div class="card-body">
+                        <span class="chip">Concept</span>
+                        <h2>Hospitality Projects</h2>
+                        <p>Menus, reservations and atmosphere for restaurants and boutique stays.</p>
+                    </div>
+                </article>
+            </div>
 
-            <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
-                <%= visual({ a: 'var(--wly-accent-indigo)', b: 'var(--wly-accent-magenta)', c: 'var(--wly-accent-cyan)', angle: '190deg' }) %>
-                <div class="card-body">
-                    <span class="chip">Concept</span>
-                    <h2>Editorial Projects</h2>
-                    <p>Readable, fast publications with strong typography and thoughtful navigation.</p>
-                </div>
-            </article>
+            <div class="reveal" style="--reveal-delay:.2s">
+                <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
+                    <%= visual({ a: 'var(--wly-accent-indigo)', b: 'var(--wly-accent-magenta)', c: 'var(--wly-accent-cyan)', angle: '190deg' }) %>
+                    <div class="card-body">
+                        <span class="chip">Concept</span>
+                        <h2>Editorial Projects</h2>
+                        <p>Readable, fast publications with strong typography and thoughtful navigation.</p>
+                    </div>
+                </article>
+            </div>
         </section>
 
-        <p class="sample-note">Sample content: these projects are fictional concepts, not real client work.</p>
+        <p class="sample-note reveal">Sample content: these projects are fictional concepts, not real client work.</p>
     </main>
 
     <%= socialFooter %>

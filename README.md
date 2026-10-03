@@ -38,4 +38,11 @@ AI image instead, drop WebP files at `src/assets/images/<name>-480.webp`, `-800.
 `img: { name, alt, w, h }` to `visual()` in the page. `alt` is required (the build fails without it). If the files
 are missing or fail to load, the art shows through. Full contract: `src/partials/visual.html`.
 
-All testimonials, clients and projects are fictional sample content.
+## Effects
+
+- **Scroll reveals:** add `class="reveal"` (plus `style="--reveal-delay:.1s"` to stagger). Only below-the-fold content; never hero/LCP. Elements that carry their own transform (tilt cards) get a wrapper `div.reveal`. Everything stays visible without JS.
+- **Cursor glow:** add `glass-card` to a frosted surface. Fine-pointer only, off under reduced motion; tilt cards are skipped (they have glare).
+- **Gradient text:** `class="gradient-text"` on h1/h2 or a span inside one, always on a glass pane. Stops are pastel and contrast-checked (>=3:1 worst case, see `--wly-text-grad` in `base.css`); keep it on a different element than any `background:` shorthand.
+- **Page transitions:** cross-document view transitions (`@view-transition` in `base.css`); the nav/footer chrome persists, content cross-fades. Unsupported browsers just navigate.
+
+All testimonials, clients, stats, FAQ answers and projects are fictional sample content, and the Home trust sections are labelled as such.
