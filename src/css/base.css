@@ -40,6 +40,10 @@
     --wly-accent-purple: #7536db;
     --wly-accent-amber: #ff9900;
     --wly-accent-cyan: #00d0ff;
+    --wly-accent-coral: #ff5c8a;
+    --wly-accent-lime: #7dff6b;
+    --wly-accent-indigo: #5b6cff;
+    --wly-art-base: #1a0540; /* deep backdrop under generative art */
     --wly-glow-magenta: 0 0 15px #df2fff, 0 0 30px #df2fff, 0 0 45px #df2fff, 0 0 60px #df2fff;
     --wly-glow-purple: 0 0 15px #7536db, 0 0 30px #7536db, 0 0 45px #7536db, 0 0 60px #7536db;
     --wly-glow-amber: 0 0 20px #ff9900, 0 0 30px #ff9900, 0 0 45px #ff9900, 0 0 60px #ff9900;

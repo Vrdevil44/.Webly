@@ -1,130 +1,124 @@
-/* projects page styles; shared chrome is in chrome.css, tokens in base.css */
+/* projects page styles; shared chrome is in chrome.css, tokens in base.css, art in visual.css */
 @layer pages {
-    th{
-        padding-top: 10px;
-        padding-bottom: 20px;
-        padding-left: 30px;
-        padding-right: 40px;
-      }
-
     .container
     {
         position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        max-width: 400px;
-        flex-wrap: wrap;
+        width: min(960px, 100%);
+        padding: 20px 0 140px; /* bottom room so the fixed footer never covers the last row */
         z-index: 1;
     }
-    .container .card
+
+    .page-title
     {
-        position: relative;
-        width: 300px;
-        height: 400px;
-        margin: 15px;
-        box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+        width: min(600px, 100%);
+        margin: 0 auto 30px;
+        padding: 22px 30px;
+        text-align: center;
+        color: var(--wly-ink);
         border-radius: 15px;
-        background: rgba(255, 255, 255, 0.1);
-        /*backdrop-filter: blur(5px);
-        overflow: hidden;*/
-        justify-content: center;
-        align-items: center;
-        border-top: 1px solid rgba(255, 255, 255, 0.5);
-        border-left: 1px solid rgba(255, 255, 255, 0.5);
-        transform-style: preserve-3d;
-        transform: perspective(1000px);
-        font-family: 'Poppins', sans-serif;
-        font-size: 10px;
-        color: white;
-    }
-    .container .card1
-    {
-        position: relative;
-        width: 600px;
-        height: 100px;
-        margin: 15px;
+        background: var(--wly-glass-tint-md);
         box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
-        border-radius: 15px;
-        background: rgba(255, 255, 255, 0.1);
-        /*backdrop-filter: blur(5px);
-        overflow: hidden;*/
-        justify-content: center;
-        align-items: center;
-        border-top: 1px solid rgba(255, 255, 255, 0.5);
-        border-left: 1px solid rgba(255, 255, 255, 0.5);
-        transform-style: preserve-3d;
-        transform: perspective(1000px);
+        border-top: 1px solid var(--wly-glass-border);
+        border-left: 1px solid var(--wly-glass-border);
+        -webkit-backdrop-filter: blur(var(--wly-blur-card));
+        backdrop-filter: blur(var(--wly-blur-card));
     }
-
-    .container .card .content
+    .page-title h1
     {
-        width: 80%;
-        height: 35%;
-        top: 50%;
-        left: 50%;
-        border-radius: 10px;
-        transform: translateZ(150px) translateX(12%) translateY(40%);
-        box-shadow: 0px 0px 50px 0 rgba(51, 51, 51, 50%);
-        background-color: rgba(255, 255, 255, 0.644);
-        overflow: hidden;
-
-
-    }
-    .container .card1 .content1
-    {
-        width: 75%;
-        height: 50%;
-        top: 50%;
-        left: 50%;
-        border-radius: 10px;
-        transform: translateZ(80px) translateX(0%) translateY(50%);
-        box-shadow: 0px 0px 50px 0 rgba(51, 51, 51, 50%);
-        background-color: rgba(255, 255, 255, 0.1);
-        overflow: hidden;
-
-    }
-    .container .card .content h2
-    {
-        position: absolute;
-        top: -80px;
-        right: 30px;
-        font-size: 8em;
-        color: rgb(255, 255, 255);
-        pointer-events: none;
-    }
-    .container .card1 .content1 h2
-    {
-
-        justify-content: center;
         font-size: 2.6em;
-        margin-top: -10px;
-        color: rgb(255, 255, 255);
-        pointer-events: none;
+        font-weight: 600;
     }
-    .container .card .content h3
+    .page-title p
     {
-        font-size: 1.8em;
-        color: #fff;
-
-    }
-    .container .card .content p
-    {
-        font-size: 1em;
-        color: #fff;
+        margin-top: 4px;
+        color: var(--wly-muted);
         font-weight: 300;
     }
-    .container .card .content a
+
+    .project-grid
+    {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 300px));
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .card
     {
         position: relative;
-        display: inline-block;
-        padding: 8px 20px;
-        margin-top: 15px;
-        background: #fff;
-        color: black;
-        border-radius: 20px;
-        text-decoration: none;
-        font-weight: 500;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2)
+        padding: 12px 12px 22px;
+        border-radius: 15px;
+        background: var(--wly-glass-tint-md);
+        box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+        border-top: 1px solid var(--wly-glass-border);
+        border-left: 1px solid var(--wly-glass-border);
+        transform-style: preserve-3d;
+        transform: perspective(1000px);
+        color: var(--wly-ink);
     }
+    .card .visual
+    {
+        transform: translateZ(30px);
+    }
+    .card-body
+    {
+        padding: 18px 8px 0;
+        transform: translateZ(50px);
+    }
+    .chip
+    {
+        display: inline-block;
+        padding: 3px 12px;
+        margin-bottom: 10px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border-radius: var(--wly-radius-pill);
+        background: var(--wly-glass-tint-lg);
+        border: 1px solid var(--wly-glass-border-soft);
+        -webkit-backdrop-filter: blur(var(--wly-blur-chip));
+        backdrop-filter: blur(var(--wly-blur-chip));
+    }
+    .card-body h2
+    {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+    .card-body p
+    {
+        font-size: 0.9rem;
+        font-weight: 300;
+        line-height: 1.5;
+        color: var(--wly-muted);
+    }
+
+    .sample-note
+    {
+        margin-top: 36px;
+        text-align: center;
+        font-size: var(--wly-font-size-sm);
+        color: var(--wly-muted);
+    }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  @layer pages {
+    .page-title,
+    .chip {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background: var(--wly-glass-solid);
+    }
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  @layer pages {
+    .page-title,
+    .chip {
+      background: var(--wly-glass-solid);
+    }
+  }
 }

@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webly - Login</title>
+    <meta name="description" content="Webly login page: a non-functional demo form.">
+    <title>Webly – Login</title>
     <link rel="stylesheet" type="text/css" href="css/base.css">
     <link rel="stylesheet" type="text/css" href="css/chrome.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
@@ -16,49 +17,39 @@
 <body>
     <%= chromeTop %>
     <section>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
         <div class="box">
-
             <div class="square" style="--i:0;"></div>
             <div class="square" style="--i:1;"></div>
             <div class="square" style="--i:2;"></div>
             <div class="square" style="--i:3;"></div>
             <div class="square" style="--i:4;"></div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
 
             <div class="container">
                 <div class="form">
-                    <h2>Login </h2>
-                    <form>
+                    <h2>Login</h2>
+                    <p class="demo-line">Demo only &mdash; no real account. Nothing you type is sent or stored.</p>
+                    <!-- Deliberately no name attributes and autocomplete off/new-password, so browsers and password managers ignore it -->
+                    <form data-demo autocomplete="off" novalidate>
                         <div class="inputBox">
-                            <input type="text" placeholder="Username">
+                            <label for="demo-user">Username</label>
+                            <input id="demo-user" type="text" placeholder="Username" autocomplete="off" autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true">
                         </div>
                         <div class="inputBox">
-                            <input type="password" placeholder="Password">
+                            <label for="demo-pass">Password</label>
+                            <input id="demo-pass" type="password" placeholder="Password" autocomplete="new-password" data-1p-ignore data-lpignore="true">
                         </div>
                         <div class="inputBox">
                             <input type="submit" value="Login">
                         </div>
-                        <p class="forget">Forgot password ? <a href="#">Click here</a> </p>
-                        <p class="forget">Don't have an account ? <a href="#">Sign up</a> </p>
+                        <p class="demo-notice" role="status" aria-live="polite" hidden></p>
+                        <p class="forget">Forgot password? <button type="button" class="linklike" data-demo-notice="Demo only: there is no password to recover.">Click here</button></p>
+                        <p class="forget">Don't have an account? <button type="button" class="linklike" data-demo-notice="Demo only: sign-up is not available on this showcase site.">Sign up (demo)</button></p>
                     </form>
                 </div>
             </div>
         </div>
-
-
     </section>
     <%= socialFooter %>
-    </div>
     <%= chromeBottom %>
 
 </body>

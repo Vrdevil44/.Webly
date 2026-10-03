@@ -1,13 +1,14 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webly - Projects</title>
+    <meta name="description" content="Sample project concepts from Webly, a fictional web design studio.">
+    <title>Webly – Projects</title>
     <link rel="stylesheet" type="text/css" href="css/base.css">
     <link rel="stylesheet" type="text/css" href="css/chrome.css">
+    <link rel="stylesheet" type="text/css" href="css/visual.css">
     <link rel="stylesheet" type="text/css" href="css/projects.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,68 +18,79 @@
 <body>
     <%= chromeTop %>
 
-    <div class="container">
-        <table>
-            <tr>
-                <th colspan="3" align="center">
-                    <div class="card1">
-                        <div class="content1">
-                            <h2>Our Projects</h2>
-                        </div>
-                    </div>
-                </th>
-                <td>
+    <!--
+        Each card's visual is an image slot (see src/partials/visual.html for the full contract):
+        pass img: { name, alt, w, h } to visual() and drop tech-480/800/1200.webp into
+        src/assets/images/. alt text is required. Without img, the generative art is shown.
+    -->
+    <main class="container">
+        <header class="page-title">
+            <h1>Our Projects</h1>
+            <p>Sample concepts from a fictional studio</p>
+        </header>
 
-                </td>
-                <td>
+        <section class="project-grid" aria-label="Project categories">
+            <article class="card" data-tilt data-tilt-glare data-tilt-max-glare="1">
+                <%= visual({ a: 'var(--wly-accent-magenta)', b: 'var(--wly-accent-cyan)', c: 'var(--wly-accent-amber)', angle: '20deg' }) %>
+                <div class="card-body">
+                    <span class="chip">Concept</span>
+                    <h2>Portfolio Projects</h2>
+                    <p>Case-study sites that let a creative's work lead, with calm layouts and quiet motion.</p>
+                </div>
+            </article>
 
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="card" data-tilt data-tilt-glare data-tilt-max-glare="1">
-                        <h2 align="center"><br> <br> <br> Portfolio Projects </h2>
-                        <div class="content">
-                            <!-- Placeholder for missing video 09.mp4 -->
-                            <div
-                                style="width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; color: white;">
-                                Video Placeholder</div>
-                        </div>
-                        <div class="content2"></div>
-                    </div>
-                </td>
-                <td>
-                    <div class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
-                        <h2 align="center"><br> <br> <br> Tech Projects </h2>
-                        <div class="content">
-                            <!-- Placeholder for missing image tech.jpeg -->
-                            <div
-                                style="width: 100%; height: 100%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
-                            </div>
-                        </div>
-                        <div class="content2"></div>
-                    </div>
-                </td>
-                <td>
-                    <div class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
-                        <h2 align="center"><br> <br> <br> Commute Projects </h2>
-                        <div class="content">
-                            <!-- Placeholder for missing image commute.jpeg -->
-                            <div
-                                style="width: 100%; height: 100%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
-                            </div>
-                        </div>
-                        <div class="content2"></div>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <!-- vanilla-tilt is now imported in app.js -->
+            <article class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+                <%= visual({ a: 'var(--wly-accent-cyan)', b: 'var(--wly-accent-indigo)', c: 'var(--wly-accent-magenta)', angle: '140deg' }) %>
+                <div class="card-body">
+                    <span class="chip">Concept</span>
+                    <h2>Tech Projects</h2>
+                    <p>Product and developer sites with crisp docs, clear pricing and fast-loading demos.</p>
+                </div>
+            </article>
+
+            <article class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+                <%= visual({ a: 'var(--wly-accent-amber)', b: 'var(--wly-accent-coral)', c: 'var(--wly-accent-purple)', angle: '250deg' }) %>
+                <div class="card-body">
+                    <span class="chip">Concept</span>
+                    <h2>Commerce Projects</h2>
+                    <p>Storefronts built around quick browsing, honest product detail and a short checkout.</p>
+                </div>
+            </article>
+
+            <article class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+                <%= visual({ a: 'var(--wly-accent-lime)', b: 'var(--wly-accent-cyan)', c: 'var(--wly-accent-indigo)', angle: '60deg' }) %>
+                <div class="card-body">
+                    <span class="chip">Concept</span>
+                    <h2>Wellness Projects</h2>
+                    <p>Booking-first sites for studios and clinics, with a soft palette and easy scheduling.</p>
+                </div>
+            </article>
+
+            <article class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+                <%= visual({ a: 'var(--wly-accent-coral)', b: 'var(--wly-accent-amber)', c: 'var(--wly-accent-magenta)', angle: '300deg' }) %>
+                <div class="card-body">
+                    <span class="chip">Concept</span>
+                    <h2>Hospitality Projects</h2>
+                    <p>Menus, reservations and atmosphere for restaurants and boutique stays.</p>
+                </div>
+            </article>
+
+            <article class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+                <%= visual({ a: 'var(--wly-accent-indigo)', b: 'var(--wly-accent-magenta)', c: 'var(--wly-accent-cyan)', angle: '190deg' }) %>
+                <div class="card-body">
+                    <span class="chip">Concept</span>
+                    <h2>Editorial Projects</h2>
+                    <p>Readable, fast publications with strong typography and thoughtful navigation.</p>
+                </div>
+            </article>
+        </section>
+
+        <p class="sample-note">Sample content: these projects are fictional concepts, not real client work.</p>
+    </main>
+
     <%= socialFooter %>
-    </div>
     <%= chromeBottom %>
 
 </body>
 
 </html>
-```

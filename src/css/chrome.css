@@ -82,6 +82,18 @@
     margin-left: 20px;
   }
 
+  a.image {
+    display: block;
+    text-decoration: none;
+  }
+
+  .image .logo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
   .tagline {
     font-size: var(--wly-font-size-sm);
     color: var(--wly-ink);
@@ -192,6 +204,19 @@
     -webkit-backdrop-filter: blur(var(--wly-blur-bar));
     backdrop-filter: blur(var(--wly-blur-bar));
     border-top: 1px solid var(--wly-glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footerbase .copyright {
+    color: var(--wly-muted);
+    font-size: var(--wly-font-size-sm);
+    letter-spacing: 0.04em;
+  }
+
+  ul.footer li a[aria-disabled="true"] {
+    cursor: default;
   }
 
   ul.footer {

@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webly - Reviews</title>
+    <meta name="description" content="Sample client testimonials for Webly, a fictional web design studio.">
+    <title>Webly – Reviews</title>
     <link rel="stylesheet" type="text/css" href="css/base.css">
     <link rel="stylesheet" type="text/css" href="css/chrome.css">
+    <link rel="stylesheet" type="text/css" href="css/visual.css">
     <link rel="stylesheet" type="text/css" href="css/reviews.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,28 +17,62 @@
 
 <body>
     <%= chromeTop %>
-    <div class="container">
-        <div class="card">
-            <div class="sneaker">
-                <div class="circle"></div>
-                <!-- Placeholder for missing image logo.jpeg -->
-                <div style="width: 100%; height: 100%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
-                </div>
-            </div>
-            <div class="info">
-                <h1 class="title">The Best Web Hosting Providers of 2021</h1>
-                <h3>Your business needs a web host that’s stable, secure, and fast. The right hosting provider will make
-                    your site easier to manage, and improve the experience of customers visiting you online. While it
-                    seems like web hosts are a dime a dozen, we strongly recommend prioritizing quality over lowest
-                    cost.</h3>
-                <div class="sizes">
-                </div>
-            </div>
-        </div>
-    </div>
+    <main class="container">
+        <header class="page-title">
+            <h1>Reviews</h1>
+            <p>What our imagined clients say</p>
+        </header>
+
+        <section class="review-grid" aria-label="Client testimonials">
+            <figure class="card">
+                <div class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote>
+                    <p>They turned a scattered brief into a site that feels like us. Launch day was calm, which I did not expect.</p>
+                </blockquote>
+                <figcaption>
+                    <span class="art art--sm avatar" style="--art-a:var(--wly-accent-magenta);--art-b:var(--wly-accent-amber);--art-c:var(--wly-accent-indigo)" aria-hidden="true">MO</span>
+                    <span class="who"><strong>Maya Okafor</strong><span>Founder, Halcyon Grove</span></span>
+                </figcaption>
+            </figure>
+
+            <figure class="card">
+                <div class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote>
+                    <p>Clear communication and a design system our engineers actually enjoy using. Pages load fast and look sharp.</p>
+                </blockquote>
+                <figcaption>
+                    <span class="art art--sm avatar" style="--art-a:var(--wly-accent-cyan);--art-b:var(--wly-accent-indigo);--art-c:var(--wly-accent-magenta)" aria-hidden="true">DR</span>
+                    <span class="who"><strong>Daniel Reyes</strong><span>Head of Product, Brightwater Labs</span></span>
+                </figcaption>
+            </figure>
+
+            <figure class="card">
+                <div class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote>
+                    <p>Our menu and booking flow finally make sense on a phone. Guests mention the look before they mention the food.</p>
+                </blockquote>
+                <figcaption>
+                    <span class="art art--sm avatar" style="--art-a:var(--wly-accent-coral);--art-b:var(--wly-accent-amber);--art-c:var(--wly-accent-purple)" aria-hidden="true">PN</span>
+                    <span class="who"><strong>Priya Nair</strong><span>Owner, Saffron Row</span></span>
+                </figcaption>
+            </figure>
+
+            <figure class="card">
+                <div class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote>
+                    <p>Readable, quick and distinctive. The typography alone changed how readers talk about our publication.</p>
+                </blockquote>
+                <figcaption>
+                    <span class="art art--sm avatar" style="--art-a:var(--wly-accent-lime);--art-b:var(--wly-accent-cyan);--art-c:var(--wly-accent-indigo)" aria-hidden="true">TW</span>
+                    <span class="who"><strong>Tom Weller</strong><span>Editor, Fieldnote Press</span></span>
+                </figcaption>
+            </figure>
+        </section>
+
+        <p class="sample-note">Sample content: these testimonials, names and companies are invented for this demo.</p>
+    </main>
 
     <%= socialFooter %>
-    </div>
     <%= chromeBottom %>
 
 </body>

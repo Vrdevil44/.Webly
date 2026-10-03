@@ -14,6 +14,8 @@ class App {
     this.setupNavMarker();
     this.setupTilt();
     this.setupReveal();
+    this.setupVisuals();
+    this.setupDemoForm();
   }
 
   // Fade the spinner out once the page has loaded, then remove it from layout
@@ -77,6 +79,36 @@ class App {
       speed: 400,
       glare: true,
       'max-glare': 0.5,
+    });
+  }
+
+  // Image slots: if a local image is missing or broken, drop it so the generative art underneath shows
+  setupVisuals() {
+    document.querySelectorAll('.visual > img').forEach((img) => {
+      const drop = () => img.remove();
+      if (img.complete && img.naturalWidth === 0) drop();
+      else img.addEventListener('error', drop, { once: true });
+    });
+  }
+
+  // Login is a demo: never submit, read or store anything; just show a notice
+  setupDemoForm() {
+    const form = document.querySelector('form[data-demo]');
+    if (!form) return;
+
+    const notice = form.querySelector('.demo-notice');
+    const show = (msg) => {
+      notice.textContent = msg;
+      notice.hidden = false;
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form.reset();
+      show('Demo only: no account exists, so nothing was submitted.');
+    });
+    form.querySelectorAll('[data-demo-notice]').forEach((btn) => {
+      btn.addEventListener('click', () => show(btn.dataset.demoNotice));
     });
   }
 

@@ -1,0 +1,33 @@
+<%
+/*
+ * Visual slot  (EJS partial; rendered via visual({...}) from any page template)
+ *
+ * Every visual on the site (project cards, About) is a slot with two layers:
+ *   1. .art  - generative CSS art, always rendered; the fallback.
+ *   2. <img> - OPTIONAL local image that covers the art when present.
+ *
+ * Params
+ *   a, b, c  CSS colours / tokens for the art (e.g. 'var(--wly-accent-cyan)'). Only these 2-3 props
+ *            differ per variant; the art structure is shared (css/visual.css).
+ *   angle    optional conic-orb rotation, e.g. '140deg'.
+ *   img      optional { name, alt, w, h }:
+ *              name  base filename, no extension, in src/assets/images/
+ *              alt   REQUIRED, meaningful description (build fails without it)
+ *              w,h   intrinsic ratio of the largest file (prevents layout shift)
+ *
+ * Image contract (WebP only). For img.name = 'tech':
+ *   src/assets/images/tech-480.webp    480w
+ *   src/assets/images/tech-800.webp    800w
+ *   src/assets/images/tech-1200.webp  1200w
+ * Output uses srcset + sizes and loading="lazy". If the files are missing or fail
+ * to load, the <img> removes itself (js/app.js) and the art shows through.
+ *
+ * Example:  visual({ a: ..., b: ..., c: ...,
+ *                    img: { name: 'tech', alt: 'Dashboard UI floating over violet glass', w: 1200, h: 900 } })
+ */
+const o = Object.assign({ a: 'var(--wly-accent-magenta)', b: 'var(--wly-accent-cyan)', c: 'var(--wly-accent-amber)', angle: '0deg', img: null, sizes: '(min-width: 1000px) 300px, 80vw' }, obj);
+if (o.img && !(o.img.alt && o.img.alt.trim())) throw new Error('visual(): img.alt is required (image "' + o.img.name + '")');
+%><figure class="visual">
+    <div class="art" style="--art-a:<%= o.a %>;--art-b:<%= o.b %>;--art-c:<%= o.c %>;--art-angle:<%= o.angle %>" aria-hidden="true"></div><% if (o.img) { const base = 'assets/images/' + o.img.name; %>
+    <img src="<%= base %>-800.webp" srcset="<%= base %>-480.webp 480w, <%= base %>-800.webp 800w, <%= base %>-1200.webp 1200w" sizes="<%= o.sizes %>" width="<%= o.img.w %>" height="<%= o.img.h %>" alt="<%= _.escape(o.img.alt) %>" loading="lazy" decoding="async"><% } %>
+</figure>

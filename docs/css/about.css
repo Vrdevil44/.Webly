@@ -1,5 +1,9 @@
 /* about page styles; shared chrome is in chrome.css, tokens in base.css */
 @layer pages {
+    section
+    {
+        padding: 110px 0 140px; /* clear the fixed logo and footer */
+    }
     .container
     {
         position: relative;
@@ -10,7 +14,8 @@
         box-shadow: 0 15px 35px rgba(0,0,0,0.05);
         border-radius: 20px;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
+        gap: 60px;
         align-items: center;
         padding: 50px;
     }
@@ -37,6 +42,8 @@
     }
     .content
     {
+        position: relative;
+        z-index: 1; /* paint above the fixed backdrop blob */
         transform: translateX(-100px);
         max-width: 700px;
         box-shadow: 0 15px 30px rgba(0,0,0,0.1);
@@ -72,21 +79,20 @@
         text-decoration: none;
         box-shadow: 0 5px 10px rgba(0,0,0,0.1);
     }
-    .imgBx img
+    .content .note
     {
-        max-width: 400px;
-        animation: animate 5s linear infinite;
+        margin-top: 20px;
+        font-size: var(--wly-font-size-sm);
+        color: var(--wly-muted);
     }
-    @keyframes animate
+    .content p + p
     {
-        0%,100%
-        {
-            transform: translateY(50px);
-        }
-        50%
-        {
-            transform: translateY(100px);
-        }
+        margin-top: 14px;
+    }
+    .imgBx
+    {
+        width: 340px;
+        flex: none;
     }
 }
 

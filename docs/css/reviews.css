@@ -1,93 +1,136 @@
-/* reviews page styles; shared chrome is in chrome.css, tokens in base.css */
+/* reviews page styles; shared chrome is in chrome.css, tokens in base.css, art in visual.css */
 @layer pages {
-    .container {
-        transform-style: preserve-3d;
-        width: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .card {
-        transform-style: preserve-3d;
-        min-height: 80vh;
-        width: 35rem;
-        border-radius: 30px;
-        padding: 0rem 5rem;
-        box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgba(0, 0, 0, 0.2);
-      }
-
-      .sneaker {
-        transform-style: preserve-3d;
-        min-height: 35vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .sneaker img {
-        width: 20rem;
-        z-index: 2;
-        transition: all 0.75s ease-out;
-      }
-      .circle {
-        width: 15rem;
-        height: 15rem;
-        background: linear-gradient(
-          to right,
-          rgba(245, 70, 66, 0.75),
-          rgba(8, 83, 156, 0.75)
-        );
-        position: absolute;
-        border-radius: 50%;
+    .container
+    {
+        position: relative;
+        width: min(960px, 100%);
+        padding: 20px 0 140px; /* bottom room so the fixed footer never covers the last row */
         z-index: 1;
-      }
+    }
 
-      .info{
-        transform-style: preserve-3d;
-      }
+    .page-title
+    {
+        width: min(600px, 100%);
+        margin: 0 auto 30px;
+        padding: 22px 30px;
+        text-align: center;
+        color: var(--wly-ink);
+        border-radius: 15px;
+        background: var(--wly-glass-tint-md);
+        box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+        border-top: 1px solid var(--wly-glass-border);
+        border-left: 1px solid var(--wly-glass-border);
+        -webkit-backdrop-filter: blur(var(--wly-blur-card));
+        backdrop-filter: blur(var(--wly-blur-card));
+    }
+    .page-title h1
+    {
+        font-size: 2.6em;
+        font-weight: 600;
+    }
+    .page-title p
+    {
+        margin-top: 4px;
+        color: var(--wly-muted);
+        font-weight: 300;
+    }
 
-      .info h1 {
-        font-size: 2rem;
-        transition: all 0.75s ease-out;
-        color: white;
-      }
-      .info h3 {
-        font-size: 1.3rem;
-        padding: 2rem 0rem;
-        color: #ffffff;
-        font-weight: lighter;
-        transition: all 0.75s ease-out;
-      }
-      .sizes {
+    .review-grid
+    {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 30px;
+    }
+
+    .card
+    {
         display: flex;
-        justify-content: space-between;
-        transition: all 0.75s ease-out;
-      }
-      .sizes button {
-        padding: 0.5rem 2rem;
-        background: none;
-        border: none;
-        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-        border-radius: 30px;
-        cursor: pointer;
-        font-weight: bold;
-        color: #585858;
-      }
-      button.active {
-        background: #585858;
-        color: white;
-      }
-      .purchase {
-        margin-top: 5rem;
-        transition: all 0.75s ease-out;
-      }
-      .purchase button {
-        width: 100%;
-        padding: 1rem 0rem;
-        background: #f54642;
-        border: none;
-        color: white;
-        cursor: pointer;
-        border-radius: 30px;
-        font-weight: bolder;
-      }
+        flex-direction: column;
+        gap: 14px;
+        padding: 28px;
+        border-radius: 20px;
+        color: var(--wly-ink);
+        background: var(--wly-glass-tint-md);
+        box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.35);
+        border: 1px solid var(--wly-glass-border-soft);
+        border-top: 1px solid var(--wly-glass-border);
+        border-left: 1px solid var(--wly-glass-border);
+        -webkit-backdrop-filter: blur(var(--wly-blur-card));
+        backdrop-filter: blur(var(--wly-blur-card));
+    }
+    .stars
+    {
+        color: var(--wly-accent-amber);
+        letter-spacing: 3px;
+        font-size: 1.1rem;
+    }
+    .card blockquote p
+    {
+        font-size: 1.05rem;
+        font-weight: 300;
+        line-height: 1.6;
+    }
+    .card figcaption
+    {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-top: auto;
+    }
+    .avatar
+    {
+        position: relative;
+        flex: none;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        border: 1px solid var(--wly-glass-border);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    }
+    .who
+    {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.85rem;
+        color: var(--wly-muted);
+    }
+    .who strong
+    {
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--wly-ink);
+    }
+
+    .sample-note
+    {
+        margin-top: 36px;
+        text-align: center;
+        font-size: var(--wly-font-size-sm);
+        color: var(--wly-muted);
+    }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  @layer pages {
+    .page-title,
+    .card {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background: var(--wly-glass-solid);
+    }
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  @layer pages {
+    .page-title,
+    .card {
+      background: var(--wly-glass-solid);
+    }
+  }
 }

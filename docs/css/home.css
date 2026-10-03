@@ -7,7 +7,7 @@
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
-        padding: 10px 0;
+        padding: 100px 0 10px; /* clear the fixed logo */
     }
 
     .container2 .box
