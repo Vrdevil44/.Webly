@@ -50,19 +50,7 @@
         line-height: 1.6;
         color: #ffffff;
     }
-    .content a
-    {
-        display: inline-block;
-        padding: 15px 30px;
-        background: #fff;
-        color: #8a2435;
-        margin-top: 20px;
-        border-radius: 30px;
-        font-size: 1.2em;
-        font-weight: 500;
-        text-decoration: none;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-    }
+    /* (About has no in-content link; no .content a rule needed.) */
     .content .note
     {
         margin-top: 20px;
