@@ -1,6 +1,7 @@
 import VanillaTilt from 'vanilla-tilt';
 
-document.documentElement.classList.add('js');
+// Note: the `js` class is set by a synchronous inline script in head.html so it
+// exists before first paint (kills the no-JS nav flash on reload).
 
 const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Tilt needs a hovering pointer; on touch it would only fire on tap and fight scrolling
