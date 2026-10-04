@@ -64,11 +64,6 @@
     transition: opacity 0.4s;
   }
 
-  .spinner.is-done {
-    opacity: 0;
-    pointer-events: none;
-  }
-
   .spinner:before,
   .spinner:after {
     border-left: 14px solid #000;

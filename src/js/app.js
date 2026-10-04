@@ -15,7 +15,6 @@ class App {
   }
 
   init() {
-    this.setupLoader();
     this.setupNavToggle();
     this.setupNavMarker();
     this.setupTilt();
@@ -25,22 +24,9 @@ class App {
     this.setupDemoForm();
   }
 
-  // Fade the spinner out once the page has loaded, then remove it from layout
-  setupLoader() {
-    const spinner = document.querySelector('.spinner');
-    if (!spinner) return;
-
-    const hide = () => {
-      spinner.classList.add('is-done');
-      setTimeout(() => { spinner.style.display = 'none'; }, 400);
-    };
-
-    if (document.readyState === 'complete') {
-      hide();
-    } else {
-      window.addEventListener('load', hide, { once: true });
-    }
-  }
+  // The square spinner is a permanent decorative element: it loops the
+  // rotateplane flip forever (the classic Webly motion). It is never hidden;
+  // prefers-reduced-motion stills it via the global guard in base.css.
 
   // Below 900px the nav is a disclosure menu: button[aria-expanded] toggles it, focus moves in on open,
   // Escape / outside click / tabbing away close it (Escape returns focus to the button)
