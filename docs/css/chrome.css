@@ -1,0 +1,683 @@
+/* Shared page chrome: reset, body, spinner, logo, nav, footer. Tokens/blobs live in base.css.
+   Mobile-first: below 900px the chrome is a top bar with a disclosure menu; from 900px it is the
+   floating logo + left nav rail. Page content is padded by --wly-chrome-clear / --wly-page-pad. */
+@layer tokens, base, components, pages;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: var(--wly-chrome-clear);
+  }
+
+  body {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: var(--wly-chrome-clear) var(--wly-page-pad) 90px; /* bottom: clear the fixed footer bar */
+    background: var(--wly-bg-gradient);
+    background-size: 200% 200%;
+    animation: gradient var(--wly-bg-speed) ease infinite;
+    font-family: var(--wly-font-body);
+    font-size: var(--wly-fs-body);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--wly-ink);
+    overflow-wrap: break-word;
+  }
+
+  main {
+    display: block;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  .spinner {
+    box-sizing: border-box;
+    width: 60px;
+    height: 60px;
+    z-index: 30;
+    border-left: 12px solid var(--wly-ink);
+    border-right: 12px solid var(--wly-ink);
+    overflow: hidden;
+    position: fixed;
+    left: calc(50% - 30px);
+    top: 2px;
+    opacity: 1;
+    animation: rotateplane 2s infinite ease-in-out;
+    transition: opacity 0.4s;
+  }
+
+  .spinner.is-done {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .spinner:before,
+  .spinner:after {
+    border-left: 14px solid #000;
+    border-right: 14px solid #000;
+    box-sizing: border-box;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 15px;
+    height: 30px;
+  }
+
+  .spinner:before {
+    top: 0;
+    left: 4px;
+  }
+
+  .spinner:after {
+    bottom: 0;
+    left: 4px;
+  }
+
+  /* ---- Top bar (mobile / tablet) ---- */
+  .site-chrome {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    height: 64px;
+    padding: 0 var(--wly-page-pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--wly-glass-text);
+    border-bottom: 1px solid var(--wly-glass-border-faint);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
+    -webkit-backdrop-filter: blur(var(--wly-blur-nav));
+    backdrop-filter: blur(var(--wly-blur-nav));
+  }
+
+  a.image {
+    display: block;
+    width: 150px;
+    height: 38px;
+    text-decoration: none;
+  }
+
+  .image .logo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .tagline {
+    display: none;
+    font-size: var(--wly-font-size-sm);
+    font-weight: 500;
+    color: var(--wly-ink);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--wly-radius-lg);
+    border: 1px solid var(--wly-glass-border-soft);
+    background: var(--wly-glass-tint-md);
+    color: var(--wly-ink);
+    cursor: pointer;
+  }
+
+  html:not(.js) .nav-toggle {
+    display: none;
+  }
+
+  /* Hamburger drawn in CSS so the menu never depends on the icon font loading */
+  .nav-toggle-bars,
+  .nav-toggle-bars::before,
+  .nav-toggle-bars::after {
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform 0.25s, opacity 0.25s;
+  }
+
+  .nav-toggle-bars {
+    position: relative;
+  }
+
+  .nav-toggle-bars::before,
+  .nav-toggle-bars::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .nav-toggle-bars::before {
+    top: -7px;
+  }
+
+  .nav-toggle-bars::after {
+    top: 7px;
+  }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars {
+    background: transparent;
+  }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars::before {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars::after {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Disclosure panel: hidden (and therefore unfocusable) until opened; always shown without JS */
+  .site-nav {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: var(--wly-page-pad);
+    width: min(280px, calc(100vw - 2 * var(--wly-page-pad)));
+    overflow: hidden;
+    border-radius: var(--wly-radius-xl);
+    background: var(--wly-glass-menu); /* near-opaque: a backdrop-filter nested in the blurred bar can't blur the page */
+    border: 1px solid var(--wly-glass-border-soft);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+    -webkit-backdrop-filter: blur(var(--wly-blur-nav));
+    backdrop-filter: blur(var(--wly-blur-nav));
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.2s, transform 0.2s, visibility 0s 0.2s;
+  }
+
+  .site-nav.is-open,
+  html:not(.js) .site-nav {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  ul.header {
+    display: flex;
+    flex-direction: column;
+    padding: 6px;
+  }
+
+  ul.header li {
+    list-style: none;
+  }
+
+  ul.header li a {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 48px;
+    padding: 10px 14px;
+    border-radius: var(--wly-radius-lg);
+    color: var(--wly-ink);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  ul.header li a[aria-current="page"] {
+    background: var(--wly-glass-tint-lg);
+    font-weight: 700;
+  }
+
+  ul.header li a ion-icon {
+    flex: none;
+    font-size: 1.5rem;
+    pointer-events: none;
+  }
+
+  #marker {
+    display: none; /* the glowing tile is the desktop rail's active indicator only */
+  }
+
+  /* ---- Footer bar + social tiles ---- */
+  .footerbase {
+    /* In-flow (not fixed): a fixed bar would cover page content while scrolling. */
+    position: static;
+    height: 48px;
+    overflow: hidden;
+    z-index: 10;
+    background: var(--wly-glass-text);
+    box-shadow: var(--wly-glass-shadow);
+    -webkit-backdrop-filter: blur(var(--wly-blur-bar));
+    backdrop-filter: blur(var(--wly-blur-bar));
+    border-top: 1px solid var(--wly-glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footerbase .copyright {
+    color: var(--wly-muted);
+    font-size: var(--wly-font-size-sm);
+    letter-spacing: 0.04em;
+  }
+
+  ul.footer {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 32px auto 0;
+  }
+
+  ul.footer li {
+    list-style: none;
+  }
+
+  ul.footer li a[aria-disabled="true"] {
+    cursor: default;
+  }
+
+  /* No backdrop-filter on the icon tiles: the blurred .footerbase beneath already provides it */
+  ul.footer li a {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    border-radius: var(--wly-radius-lg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: var(--wly-ink);
+    font-size: 1.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-right: 1px solid var(--wly-glass-border-faint);
+    border-bottom: 1px solid var(--wly-glass-border-faint);
+    box-shadow: 0 5px 45px rgba(0, 0, 0, 0.1);
+    transition: 0.5s;
+    overflow: hidden;
+  }
+
+  ul.footer li a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 100%;
+    background: var(--wly-glass-border);
+    transform: skewX(45deg) translateX(150px);
+    transition: 1s;
+  }
+
+  @media (hover: hover) {
+    ul.footer li a:hover {
+      transform: translateY(-20px);
+    }
+
+    ul.footer li a:hover::before {
+      transform: skewX(45deg) translateX(-150px);
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  @layer components {
+    ul.footer {
+      gap: 8px;
+    }
+
+    ul.footer li a {
+      width: 46px;
+      height: 46px;
+      font-size: 1.4rem;
+    }
+  }
+}
+
+/* ---- Desktop rail (>= 900px): floating logo + tagline, vertical nav pinned left, footer bar floats ---- */
+@media (min-width: 900px) {
+  @layer components {
+    .site-chrome {
+      display: contents;
+    }
+
+    .spinner {
+      left: 28px;
+      top: 33px;
+    }
+
+    a.image {
+      position: fixed;
+      z-index: 20;
+      top: calc(1% + 20px);
+      left: calc(6% + 20px);
+      width: 180px;
+      height: 45px;
+    }
+
+    .tagline {
+      display: block;
+      position: fixed;
+      z-index: 20;
+      top: calc(1% + 20px + 45px + 2px);
+      left: calc(6% + 10px);
+      padding: 2px 12px;
+      border-radius: var(--wly-radius-pill);
+      background: var(--wly-glass-text); /* no pane behind it on desktop: give the small text its own */
+    }
+
+    .nav-toggle {
+      display: none;
+    }
+
+    .site-nav,
+    .site-nav.is-open {
+      position: fixed;
+      z-index: 20;
+      top: 50%;
+      right: auto;
+      left: 36px;
+      width: auto;
+      translate: 0 -50%;
+      transform: none;
+      opacity: 1;
+      visibility: visible;
+      transition: none;
+      border: 0;
+      border-radius: var(--wly-radius-lg);
+      background: none;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+
+    ul.header {
+      display: block;
+      padding: 0;
+    }
+
+    ul.header li a {
+      display: flex;
+      min-height: 0;
+      padding: 15px;
+      gap: 0;
+      border-radius: 0;
+      -webkit-backdrop-filter: blur(var(--wly-blur-nav));
+      backdrop-filter: blur(var(--wly-blur-nav));
+    }
+
+    ul.header li a[aria-current="page"] {
+      background: none;
+    }
+
+    ul.header li a ion-icon {
+      font-size: 2em;
+      opacity: 0.55; /* inactive items stay legible (was 0.25) */
+      transition: 0.25s;
+    }
+
+    ul.header li a[aria-current="page"] ion-icon {
+      opacity: 1;
+    }
+
+    .nav-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    /* Active-item marker: JS sizes/positions it over the current <li>; the tile is centred in it */
+    #marker {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: 0.5s;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    #marker::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 30px;
+      height: 30px;
+      border-radius: var(--wly-radius-md);
+    }
+
+    .site-nav:has(li:nth-child(1) > a[aria-current="page"]) #marker::before {
+      background: var(--wly-marker-1);
+      box-shadow: var(--wly-glow-amber);
+    }
+
+    .site-nav:has(li:nth-child(2) > a[aria-current="page"]) #marker::before {
+      background: var(--wly-marker-2);
+      box-shadow: 0 0 15px var(--wly-marker-2), 0 0 30px var(--wly-marker-2), 0 0 45px var(--wly-marker-2), 0 0 60px var(--wly-marker-2);
+    }
+
+    .site-nav:has(li:nth-child(3) > a[aria-current="page"]) #marker::before {
+      background: var(--wly-marker-3);
+      box-shadow: 0 0 15px var(--wly-marker-3), 0 0 30px var(--wly-marker-3), 0 0 45px var(--wly-marker-3), 0 0 60px var(--wly-marker-3);
+    }
+
+    .site-nav:has(li:nth-child(4) > a[aria-current="page"]) #marker::before {
+      background: var(--wly-marker-4);
+      box-shadow: var(--wly-glow-magenta);
+    }
+
+    .site-nav:has(li:nth-child(5) > a[aria-current="page"]) #marker::before {
+      background: var(--wly-marker-5);
+      box-shadow: 0 0 15px var(--wly-marker-5), 0 0 30px var(--wly-marker-5), 0 0 45px var(--wly-marker-5), 0 0 60px var(--wly-marker-5);
+    }
+
+    .footerbase {
+      bottom: 15px;
+      height: 60px;
+    }
+
+    ul.footer {
+      gap: 20px;
+    }
+
+    ul.footer li a {
+      width: 60px;
+      height: 60px;
+      font-size: 2em;
+    }
+  }
+}
+
+/* Scroll reveal: content stays visible unless JS is running. Stagger siblings with style="--reveal-delay:.1s" */
+@layer components {
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: var(--reveal-delay, 0s);
+  }
+
+  html.js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @layer components {
+    html.js .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+}
+
+/* Gradient display text (h1/h2 only; always on a glass pane). Solid white is the fallback; the gradient
+   is layered on only where background-clip:text works, and drops out in forced-colours. */
+@layer components {
+  .gradient-text {
+    color: var(--wly-ink);
+  }
+
+  @supports ((background-clip: text) or (-webkit-background-clip: text)) {
+    .gradient-text {
+      background-image: var(--wly-text-grad);
+      background-size: 100% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      /* box-decoration-break keeps the gradient continuous across wrapped lines */
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+  }
+}
+
+@media (forced-colors: active) {
+  @layer components {
+    .gradient-text {
+      background: none;
+      -webkit-text-fill-color: currentColor;
+      color: CanvasText;
+    }
+  }
+}
+
+/* Cursor glow on glass cards: a soft highlight that follows a fine pointer. Position comes from
+   --glow-x/--glow-y, set by JS on the hovered card only. Peak alpha is kept low so text contrast holds.
+   Tilt cards are excluded: they already carry their own glare. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  @layer components {
+    .glass-card:not([data-tilt-card]) {
+      position: relative;
+    }
+
+    .glass-card:not([data-tilt-card])::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      background: radial-gradient(
+        320px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        rgba(255, 255, 255, 0.1),
+        rgba(223, 47, 255, 0.08) 45%,
+        transparent 72%
+      );
+    }
+
+    .glass-card.is-glowing::after {
+      opacity: 1;
+    }
+  }
+}
+
+/* The chrome persists across page navigations instead of cross-fading with the content. Below 900px the bar
+   is one box; from 900px .site-chrome is display:contents, so its pieces are named individually. */
+@layer components {
+  .site-chrome {
+    view-transition-name: site-chrome;
+  }
+
+  .footerbase {
+    view-transition-name: site-footer;
+  }
+
+  ul.footer {
+    view-transition-name: site-social;
+  }
+}
+
+@media (min-width: 900px) {
+  @layer components {
+    .site-chrome {
+      view-transition-name: none;
+    }
+
+    a.image {
+      view-transition-name: site-logo;
+    }
+
+    .tagline {
+      view-transition-name: site-tagline;
+    }
+
+    .site-nav {
+      view-transition-name: site-nav;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.28s;
+    animation-timing-function: ease;
+  }
+}
+
+@keyframes rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+
+/* Blur fallbacks for chrome surfaces: the dark text glass is already opaque enough to stand alone */
+@media (prefers-reduced-transparency: reduce) {
+  @layer components {
+    .site-chrome,
+    .site-nav,
+    ul.header li a,
+    .footerbase {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background: var(--wly-glass-solid);
+    }
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  @layer components {
+    .site-chrome,
+    .site-nav,
+    .footerbase {
+      background: var(--wly-glass-solid);
+    }
+  }
+}

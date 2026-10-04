@@ -1,0 +1,60 @@
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="spinner" aria-hidden="true"></div>
+    <div class="site-chrome">
+    <a class="image" href="index.html" aria-label="Webly home">
+        <svg class="logo" viewBox="0 0 190 52" role="img" aria-labelledby="logo-title" xmlns="http://www.w3.org/2000/svg">
+            <title id="logo-title">Webly</title>
+            <defs>
+                <!-- Refraction: light enters cyan, bends through magenta, exits amber -->
+                <linearGradient id="logo-body" gradientUnits="userSpaceOnUse" x1="14" y1="0" x2="156" y2="52">
+                    <stop offset="0" stop-color="#00d0ff"/>
+                    <stop offset="0.38" stop-color="#9a7bff"/>
+                    <stop offset="0.7" stop-color="#df2fff"/>
+                    <stop offset="1" stop-color="#ff9900"/>
+                </linearGradient>
+                <linearGradient id="logo-sheen" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#fff" stop-opacity="0.95"/>
+                    <stop offset="0.55" stop-color="#fff" stop-opacity="0.15"/>
+                    <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+                </linearGradient>
+                <filter id="logo-glow" x="-20%" y="-30%" width="140%" height="170%" color-interpolation-filters="sRGB">
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="3.5" result="b"/>
+                    <feFlood flood-color="#df2fff" flood-opacity="0.55"/>
+                    <feComposite in2="b" operator="in"/>
+                    <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <g id="logo-letters" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 10 L26 36 L35 16 L44 36 L52 10"/>
+                    <path d="M63 26 H81 C81 19 76.5 16 71.5 16 C65.5 16 62 20.5 62 26.5 C62 32.5 66 36 71.5 36 C75.5 36 78.5 34.5 80 31.5"/>
+                    <path d="M92 6 V36 M92 26 C92 19.5 96 16 101 16 C107 16 110.5 20.5 110.5 26 C110.5 31.5 107 36 101 36 C96 36 92 32.5 92 26"/>
+                    <path d="M122 6 V36"/>
+                    <path d="M131 16 L141 36 M151 16 L139.5 44 C137.5 48 134 48.5 131.5 47"/>
+                </g>
+            </defs>
+            <g filter="url(#logo-glow)">
+                <use href="#logo-letters" stroke="url(#logo-body)" stroke-width="6.5"/>
+            </g>
+            <!-- Inner glass rim, then the top highlight -->
+            <use href="#logo-letters" stroke="#fff" stroke-opacity="0.22" stroke-width="2.2"/>
+            <use href="#logo-letters" stroke="url(#logo-sheen)" stroke-width="2" transform="translate(-0.6 -1.6)"/>
+            <circle cx="7" cy="35" r="4" fill="#ff9900"/>
+            <circle cx="5.9" cy="33.6" r="1.2" fill="#fff" fill-opacity="0.8"/>
+        </svg>
+    </a>
+    <div class="tagline">Design in a Web-manner.</div>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <ul class="header">
+            <li><a href="index.html" aria-label="Home"<%= page === 'index' ? ' aria-current="page"' : '' %>><ion-icon name="home-outline" aria-hidden="true"></ion-icon><span class="nav-label" aria-hidden="true">Home</span></a></li>
+            <li><a href="login.html" aria-label="Login"<%= page === 'login' ? ' aria-current="page"' : '' %>><ion-icon name="person-outline" aria-hidden="true"></ion-icon><span class="nav-label" aria-hidden="true">Login</span></a></li>
+            <li><a href="projects.html" aria-label="Projects"<%= page === 'projects' ? ' aria-current="page"' : '' %>><ion-icon name="add-circle-outline" aria-hidden="true"></ion-icon><span class="nav-label" aria-hidden="true">Projects</span></a></li>
+            <li><a href="about.html" aria-label="About"<%= page === 'about' ? ' aria-current="page"' : '' %>><ion-icon name="people-outline" aria-hidden="true"></ion-icon><span class="nav-label" aria-hidden="true">About</span></a></li>
+            <li><a href="reviews.html" aria-label="Reviews"<%= page === 'reviews' ? ' aria-current="page"' : '' %>><ion-icon name="chatbubble-outline" aria-hidden="true"></ion-icon><span class="nav-label" aria-hidden="true">Reviews</span></a></li>
+        </ul>
+        <span id="marker" aria-hidden="true"></span>
+    </nav>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

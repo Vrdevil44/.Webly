@@ -1,126 +1,97 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webly - Projects</title>
-    <link rel="stylesheet" type="text/css" href="css/projects.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
+    <%= head({
+        title: 'Projects | Webly',
+        description: 'Sample project concepts from Webly, a fictional web design studio: portfolio, tech, commerce, wellness, hospitality and editorial sites.',
+        file: 'projects.html',
+        css: ['visual', 'projects'],
+    }) %>
 </head>
 
 <body>
-    <div class="spinner"></div>
-    <div class="image"><img src="assets/images/1.png" alt=".webly" width="180px" height="45px"></div>
-    <div class="tagline">Design in a Web-manner.</div>
-    <ul class="header">
-        <li><a href="index.html"><ion-icon name="home-outline"></ion-icon></a></li>
-        <li><a href="login.html"><ion-icon name="person-outline"></ion-icon></a></li>
-        <li><a href="projects.html"><ion-icon name="add-circle-outline"></ion-icon></a></li>
-        <li><a href="about.html"><ion-icon name="people-outline"></ion-icon></a></li>
-        <li><a href="reviews.html"><ion-icon name="chatbubble-outline"></ion-icon></a></li>
-        <div id="marker"></div>
-    </ul>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <%= chromeTop %>
 
-    <script>
-        let marker = document.querySelector('#marker');
-        let list = document.querySelectorAll('ul li');
+    <!--
+        Each card's visual is an image slot (see src/partials/visual.html for the full contract):
+        pass img: { name, alt, w, h } to visual() and drop tech-480/800/1200.webp into
+        src/assets/images/. alt text is required. Without img, the generative art is shown.
+    -->
+    <main class="container" id="main" tabindex="-1">
+        <header class="page-title glass-card">
+            <h1 class="gradient-text">Our Projects</h1>
+            <p>Sample concepts from a fictional studio</p>
+        </header>
 
-        function moveIndicator(e) {
-            marker.style.left = e.offsetLeft + 'px';
-            marker.style.top = e.offsetTop + 'px';
-        }
+        <section class="project-grid" aria-label="Project categories">
+                <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="1">
+                <%= visual({ a: 'var(--wly-accent-magenta)', b: 'var(--wly-accent-cyan)', c: 'var(--wly-accent-amber)', angle: '20deg', img: { name: 'portfolio', alt: 'Frosted glass panels glowing magenta, cyan and amber over deep violet', w: 1200, h: 800 } }) %>
+                <div class="card-body">
+                    <span class="chip">Concept</span>
+                    <h2>Portfolio Projects</h2>
+                    <p>Case-study sites that let a creative's work lead, with calm layouts and quiet motion.</p>
+                </div>
+            </article>
 
-        list.forEach(link => {
-            link.addEventListener('click', (e) => {
-                moveIndicator(e.target);
-            })
-        })
+            <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
+                <%= visual({ a: 'var(--wly-accent-cyan)', b: 'var(--wly-accent-indigo)', c: 'var(--wly-accent-magenta)', angle: '140deg', img: { name: 'tech', alt: 'Glass dashboard abstraction with cyan and indigo light traces', w: 1200, h: 800 } }) %>
+                <div class="card-body">
+                    <span class="chip">Concept</span>
+                    <h2>Tech Projects</h2>
+                    <p>Product and developer sites with crisp docs, clear pricing and fast-loading demos.</p>
+                </div>
+            </article>
 
-        //add active class in hovered list item
-        function activeLink() {
-            list.forEach((item) =>
-                item.classList.remove('active'));
-            this.classList.add('active');
-        }
+            <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
+                <%= visual({ a: 'var(--wly-accent-amber)', b: 'var(--wly-accent-coral)', c: 'var(--wly-accent-purple)', angle: '250deg', img: { name: 'commerce', alt: 'Glass storefront shapes glowing warm amber and coral', w: 1200, h: 800 } }) %>
+                <div class="card-body">
+                    <span class="chip">Concept</span>
+                    <h2>Commerce Projects</h2>
+                    <p>Storefronts built around quick browsing, honest product detail and a short checkout.</p>
+                </div>
+            </article>
 
-        list.forEach((item) =>
-            item.addEventListener('click', activeLink))
-    </script>
-
-    <div class="container">
-        <table>
-            <tr>
-                <th colspan="3" align="center">
-                    <div class="card1">
-                        <div class="content1">
-                            <h2>Our Projects</h2>
-                        </div>
+            <div class="reveal" style="--reveal-delay:0s">
+                <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
+                    <%= visual({ a: 'var(--wly-accent-lime)', b: 'var(--wly-accent-cyan)', c: 'var(--wly-accent-indigo)', angle: '60deg', img: { name: 'wellness', alt: 'Calm glass pebbles and orbs in lime, cyan and indigo', w: 1200, h: 800 } }) %>
+                    <div class="card-body">
+                        <span class="chip">Concept</span>
+                        <h2>Wellness Projects</h2>
+                        <p>Booking-first sites for studios and clinics, with a soft palette and easy scheduling.</p>
                     </div>
-                </th>
-                <td>
+                </article>
+            </div>
 
-                </td>
-                <td>
+            <div class="reveal" style="--reveal-delay:.1s">
+                <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
+                    <%= visual({ a: 'var(--wly-accent-coral)', b: 'var(--wly-accent-amber)', c: 'var(--wly-accent-magenta)', angle: '300deg', img: { name: 'hospitality', alt: 'Warm glass arches and glowing orbs in coral and amber', w: 1200, h: 800 } }) %>
+                    <div class="card-body">
+                        <span class="chip">Concept</span>
+                        <h2>Hospitality Projects</h2>
+                        <p>Menus, reservations and atmosphere for restaurants and boutique stays.</p>
+                    </div>
+                </article>
+            </div>
 
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="card" data-tilt data-tilt-glare data-tilt-max-glare="1">
-                        <h2 align="center"><br> <br> <br> Portfolio Projects </h2>
-                        <div class="content">
-                            <!-- Placeholder for missing video 09.mp4 -->
-                            <div
-                                style="width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; color: white;">
-                                Video Placeholder</div>
-                        </div>
-                        <div class="content2"></div>
+            <div class="reveal" style="--reveal-delay:.2s">
+                <article class="card" data-tilt-card data-tilt-glare data-tilt-max-glare="0.4">
+                    <%= visual({ a: 'var(--wly-accent-indigo)', b: 'var(--wly-accent-magenta)', c: 'var(--wly-accent-cyan)', angle: '190deg', img: { name: 'editorial', alt: 'Layered glass pages in indigo, magenta and cyan', w: 1200, h: 800 } }) %>
+                    <div class="card-body">
+                        <span class="chip">Concept</span>
+                        <h2>Editorial Projects</h2>
+                        <p>Readable, fast publications with strong typography and thoughtful navigation.</p>
                     </div>
-                </td>
-                <td>
-                    <div class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
-                        <h2 align="center"><br> <br> <br> Tech Projects </h2>
-                        <div class="content">
-                            <!-- Placeholder for missing image tech.jpeg -->
-                            <div
-                                style="width: 100%; height: 100%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
-                            </div>
-                        </div>
-                        <div class="content2"></div>
-                    </div>
-                </td>
-                <td>
-                    <div class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
-                        <h2 align="center"><br> <br> <br> Commute Projects </h2>
-                        <div class="content">
-                            <!-- Placeholder for missing image commute.jpeg -->
-                            <div
-                                style="width: 100%; height: 100%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
-                            </div>
-                        </div>
-                        <div class="content2"></div>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <!-- vanilla-tilt is now imported in app.js -->
-    <ul class="footer">
-        <li><a href="https://www.instagram.com"><ion-icon name="logo-instagram"></ion-icon></a></li>
-        <li><a href="https://www.facebook.com"><ion-icon name="logo-facebook"></ion-icon></a></li>
-        <li><a href="https://www.whatsapp.com"><ion-icon name="logo-whatsapp"></ion-icon></a></li>
-        <li><a href="https://twitter.com"><ion-icon name="logo-twitter"></ion-icon></a></li>
-        <li><a href="https://www.gmail.com"><ion-icon name="mail-outline"></ion-icon></a></li>
-    </ul>
-    </div>
-    <div class="footerbase"></div>
+                </article>
+            </div>
+        </section>
+
+        <p class="sample-note reveal">Sample content: these projects are fictional concepts, not real client work.</p>
+    </main>
+
+    <%= socialFooter %>
+    <%= chromeBottom %>
 
 </body>
 
 </html>
-```

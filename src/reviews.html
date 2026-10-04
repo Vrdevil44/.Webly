@@ -2,84 +2,73 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webly - Reviews</title>
-    <link rel="stylesheet" type="text/css" href="css/reviews.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
+    <%= head({
+        title: 'Reviews | Webly',
+        description: 'Sample client testimonials for Webly, a fictional web design studio. All names, companies and quotes are invented for this demo.',
+        file: 'reviews.html',
+        css: ['visual', 'reviews'],
+    }) %>
 </head>
 
 <body>
-    <div class="spinner"></div>
-    <div class="image"><img src="assets/images/1.png" alt=".webly" width="180px" height="45px"></div>
-    <div class="tagline">Design in a Web-manner.</div>
-    <ul class="header">
-        <li><a href="index.html"><ion-icon name="home-outline"></ion-icon></a></li>
-        <li><a href="login.html"><ion-icon name="person-outline"></ion-icon></a></li>
-        <li><a href="projects.html"><ion-icon name="add-circle-outline"></ion-icon></a></li>
-        <li><a href="about.html"><ion-icon name="people-outline"></ion-icon></a></li>
-        <li><a href="reviews.html"><ion-icon name="chatbubble-outline"></ion-icon></a></li>
-        <div id="marker"></div>
-    </ul>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <%= chromeTop %>
+    <main class="container" id="main" tabindex="-1">
+        <header class="page-title glass-card">
+            <h1 class="gradient-text">Reviews</h1>
+            <p>What our imagined clients say</p>
+        </header>
 
-    <script>
-        let marker = document.querySelector('#marker');
-        let list = document.querySelectorAll('ul li');
+        <section class="review-grid" aria-label="Client testimonials">
+            <figure class="card glass-card">
+                <div class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote>
+                    <p>They turned a scattered brief into a site that feels like us. Launch day was calm, which I did not expect.</p>
+                </blockquote>
+                <figcaption>
+                    <span class="art art--sm avatar" style="--art-a:var(--wly-accent-magenta);--art-b:var(--wly-accent-amber);--art-c:var(--wly-accent-indigo)" aria-hidden="true">MO</span>
+                    <span class="who"><strong>Maya Okafor</strong><span>Founder, Halcyon Grove</span></span>
+                </figcaption>
+            </figure>
 
-        function moveIndicator(e) {
-            marker.style.left = e.offsetLeft + 'px';
-            marker.style.top = e.offsetTop + 'px';
-        }
+            <figure class="card glass-card">
+                <div class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote>
+                    <p>Clear communication and a design system our engineers actually enjoy using. Pages load fast and look sharp.</p>
+                </blockquote>
+                <figcaption>
+                    <span class="art art--sm avatar" style="--art-a:var(--wly-accent-cyan);--art-b:var(--wly-accent-indigo);--art-c:var(--wly-accent-magenta)" aria-hidden="true">DR</span>
+                    <span class="who"><strong>Daniel Reyes</strong><span>Head of Product, Brightwater Labs</span></span>
+                </figcaption>
+            </figure>
 
-        list.forEach(link => {
-            link.addEventListener('click', (e) => {
-                moveIndicator(e.target);
-            })
-        })
+            <figure class="card glass-card reveal" style="--reveal-delay:0s">
+                <div class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote>
+                    <p>Our menu and booking flow finally make sense on a phone. Guests mention the look before they mention the food.</p>
+                </blockquote>
+                <figcaption>
+                    <span class="art art--sm avatar" style="--art-a:var(--wly-accent-coral);--art-b:var(--wly-accent-amber);--art-c:var(--wly-accent-purple)" aria-hidden="true">PN</span>
+                    <span class="who"><strong>Priya Nair</strong><span>Owner, Saffron Row</span></span>
+                </figcaption>
+            </figure>
 
-        //add active class in hovered list item
-        function activeLink() {
-            list.forEach((item) =>
-                item.classList.remove('active'));
-            this.classList.add('active');
-        }
+            <figure class="card glass-card reveal" style="--reveal-delay:.12s">
+                <div class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote>
+                    <p>Readable, quick and distinctive. The typography alone changed how readers talk about our publication.</p>
+                </blockquote>
+                <figcaption>
+                    <span class="art art--sm avatar" style="--art-a:var(--wly-accent-lime);--art-b:var(--wly-accent-cyan);--art-c:var(--wly-accent-indigo)" aria-hidden="true">TW</span>
+                    <span class="who"><strong>Tom Weller</strong><span>Editor, Fieldnote Press</span></span>
+                </figcaption>
+            </figure>
+        </section>
 
-        list.forEach((item) =>
-            item.addEventListener('click', activeLink))
-    </script>
-    <div class="container">
-        <div class="card">
-            <div class="sneaker">
-                <div class="circle"></div>
-                <!-- Placeholder for missing image logo.jpeg -->
-                <div style="width: 100%; height: 100%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
-                </div>
-            </div>
-            <div class="info">
-                <h1 class="title">The Best Web Hosting Providers of 2021</h1>
-                <h3>Your business needs a web host that’s stable, secure, and fast. The right hosting provider will make
-                    your site easier to manage, and improve the experience of customers visiting you online. While it
-                    seems like web hosts are a dime a dozen, we strongly recommend prioritizing quality over lowest
-                    cost.</h3>
-                <div class="sizes">
-                </div>
-            </div>
-        </div>
-    </div>
+        <p class="sample-note reveal">Sample content: these testimonials, names and companies are invented for this demo.</p>
+    </main>
 
-    <ul class="footer">
-        <li><a href="https://www.instagram.com"><ion-icon name="logo-instagram"></ion-icon></a></li>
-        <li><a href="https://www.facebook.com"><ion-icon name="logo-facebook"></ion-icon></a></li>
-        <li><a href="https://www.whatsapp.com"><ion-icon name="logo-whatsapp"></ion-icon></a></li>
-        <li><a href="https://twitter.com"><ion-icon name="logo-twitter"></ion-icon></a></li>
-        <li><a href="https://www.gmail.com"><ion-icon name="mail-outline"></ion-icon></a></li>
-    </ul>
-    </div>
-    <div class="footerbase"></div>
+    <%= socialFooter %>
+    <%= chromeBottom %>
 
 </body>
 

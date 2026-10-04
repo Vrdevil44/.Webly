@@ -11,14 +11,6 @@ export const debounce = (func, wait) => {
   };
 };
 
-// Smooth scroll to element
-export const smoothScroll = (element) => {
-  element.scrollIntoView({
-    behavior: 'smooth',
-    block: 'start'
-  });
-};
-
 // Check if element is in viewport
 export const isInViewport = (element) => {
   const rect = element.getBoundingClientRect();
@@ -28,20 +20,6 @@ export const isInViewport = (element) => {
     rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
-};
-
-// Format date
-export const formatDate = (date) => {
-  return new Date(date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-};
-
-// Generate random ID
-export const generateId = () => {
-  return Math.random().toString(36).substr(2, 9);
 };
 
 // Throttle function for performance optimization

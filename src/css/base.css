@@ -1,110 +1,278 @@
-:root {
-  /* Colors */
-  --primary-color: #4158D0;
-  --secondary-color: #C850C0;
-  --accent-color: #FFCC70;
-  --text-color: #333;
-  --light-text: #fff;
-  --background-color: #f5f5f5;
-  
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 2rem;
-  --spacing-xl: 4rem;
-  
-  /* Typography */
-  --font-family: 'Poppins', sans-serif;
-  --font-size-sm: 0.875rem;
-  --font-size-md: 1rem;
-  --font-size-lg: 1.25rem;
-  --font-size-xl: 2rem;
-  
-  /* Transitions */
-  --transition-fast: 0.2s ease;
-  --transition-normal: 0.3s ease;
-  --transition-slow: 0.5s ease;
-  
-  /* Shadows */
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  
-  /* Border Radius */
-  --border-radius-sm: 4px;
-  --border-radius-md: 8px;
-  --border-radius-lg: 16px;
-  --border-radius-full: 9999px;
+/* Webly design tokens + page backdrop (loaded first, before chrome.css and the page css) */
+@layer tokens, base, components, pages;
+
+@layer tokens {
+  :root {
+    color-scheme: dark;
+
+    /* Page gradient stops (deep-space purple -> magenta -> white) */
+    --wly-bg-0: #000;
+    --wly-bg-1: rgb(56, 4, 105);
+    --wly-bg-2: #7536db;
+    --wly-bg-3: rgb(193, 107, 233);
+    --wly-bg-4: #fff;
+    --wly-bg-gradient: linear-gradient(135deg, var(--wly-bg-0), var(--wly-bg-1), var(--wly-bg-2), var(--wly-bg-3), var(--wly-bg-4));
+    --wly-bg-speed: 8s;
+
+    /* Backdrop blobs */
+    --wly-blob-a: linear-gradient(#f00, #f0f);
+    --wly-blob-b: linear-gradient(135deg, #34025e, #fc3333, #fff);
+
+    /* Ink */
+    --wly-ink: #fff;
+    --wly-ink-dark: #111;
+    --wly-muted: rgba(255, 255, 255, 0.88); /* >=4.5:1 on --wly-glass-text even over the whitest gradient stop */
+
+    /* Glass surfaces */
+    --wly-glass-tint: rgba(255, 255, 255, 0.05);
+    --wly-glass-tint-md: rgba(255, 255, 255, 0.1);
+    --wly-glass-tint-lg: rgba(255, 255, 255, 0.2);
+    --wly-glass-border: rgba(255, 255, 255, 0.5);
+    --wly-glass-border-soft: rgba(255, 255, 255, 0.25);
+    --wly-glass-border-faint: rgba(255, 255, 255, 0.2);
+    --wly-glass-text: rgba(28, 6, 64, 0.64); /* dark glass for any pane that carries text: keeps body copy >=4.5:1 on every gradient/blob stop */
+    --wly-glass-menu: rgba(24, 5, 56, 0.97);
+    --wly-glass-solid: rgba(40, 8, 80, 0.72); /* fallback when blur is unavailable / transparency reduced */
+    --wly-glass-shadow: 0 5px 45px rgba(0, 0, 0, 0.25);
+    --wly-blur-nav: 15px;
+    --wly-blur-card: 10px;
+    --wly-blur-bar: 5px;
+    --wly-blur-chip: 3px;
+
+    /* Accents */
+    --wly-accent-magenta: #df2fff;
+    --wly-accent-purple: #7536db;
+    --wly-accent-amber: #ff9900;
+    --wly-accent-cyan: #00d0ff;
+    --wly-accent-coral: #ff5c8a;
+    --wly-accent-lime: #7dff6b;
+    --wly-accent-indigo: #5b6cff;
+    /* Display-text gradient: pastel stops only. Contrast-checked >=3:1 (large text) against the worst-case
+       backdrop: pure white behind --wly-glass-text, with the card glow at peak. Saturated accents fail, so they stay out. */
+    --wly-text-grad: linear-gradient(100deg, #fff 0%, #ffbdf0 38%, #a3e7ff 72%, #ffdc94 100%);
+    --wly-art-base: #1a0540; /* deep backdrop under generative art */
+    --wly-glow-magenta: 0 0 15px #df2fff, 0 0 30px #df2fff, 0 0 45px #df2fff, 0 0 60px #df2fff;
+    --wly-glow-purple: 0 0 15px #7536db, 0 0 30px #7536db, 0 0 45px #7536db, 0 0 60px #7536db;
+    --wly-glow-amber: 0 0 20px #ff9900, 0 0 30px #ff9900, 0 0 45px #ff9900, 0 0 60px #ff9900;
+    --wly-glow-cyan: 0 0 15px #00d0ff, 0 0 30px #00d0ff, 0 0 45px #00d0ff, 0 0 60px #00d0ff;
+
+    /* Nav marker colours, one per nav item */
+    --wly-marker-1: var(--wly-accent-amber);
+    --wly-marker-2: #ff0;
+    --wly-marker-3: #0f0;
+    --wly-marker-4: var(--wly-accent-magenta);
+    --wly-marker-5: #ff308f;
+
+    /* Type */
+    --wly-font-body: 'Poppins', sans-serif;
+    --wly-font-size-sm: 0.8125rem;
+    /* Fluid type scale: min at 320px wide, max from ~1200px */
+    --wly-fs-body: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    --wly-fs-display: clamp(2rem, 1.2rem + 3.2vw, 3rem);
+    --wly-fs-title: clamp(1.9rem, 1.2rem + 2.6vw, 2.6rem);
+    --wly-fs-h2: clamp(1.4rem, 1.1rem + 1.2vw, 2rem);
+    --wly-fs-h3: clamp(1.15rem, 1.05rem + 0.5vw, 1.3rem);
+
+    /* Layout: below 900px a top bar + disclosure menu; from 900px the floating logo + left nav rail */
+    --wly-chrome-clear: 84px;   /* space the fixed chrome takes at the top of every page */
+    --wly-page-pad: clamp(16px, 5vw, 40px);
+    --wly-focus-ring: 0 0 0 3px var(--wly-ink), 0 0 0 6px var(--wly-accent-magenta);
+
+    /* Spacing */
+    --wly-space-1: 5px;
+    --wly-space-2: 10px;
+    --wly-space-3: 15px;
+    --wly-space-4: 20px;
+    --wly-space-5: 40px;
+
+    /* Radius */
+    --wly-radius-sm: 4px;
+    --wly-radius-md: 8px;
+    --wly-radius-lg: 10px;
+    --wly-radius-xl: 20px;
+    --wly-radius-pill: 30px;
+  }
 }
 
-/* Reset */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@media (min-width: 900px) {
+  @layer tokens {
+    :root {
+      --wly-chrome-clear: 100px;
+      --wly-page-pad: 112px; /* symmetric gutters keep the 62px nav rail clear of content */
+    }
+  }
 }
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-body {
-  font-family: var(--font-family);
-  line-height: 1.5;
-  color: var(--text-color);
-  background-color: var(--background-color);
-  overflow-x: hidden;
+@layer base {
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--wly-blob-a);
+    clip-path: circle(30% at right 70%);
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--wly-blob-b);
+    background-size: 50% 50%;
+    clip-path: circle(20% at 10% 10%);
+  }
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+/* Accessibility primitives shared by every page */
+@layer base {
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: var(--wly-space-4);
+    top: -120px;
+    z-index: 2000;
+    padding: 10px 20px;
+    border-radius: var(--wly-radius-pill);
+    background: var(--wly-ink);
+    color: var(--wly-ink-dark);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .skip-link:focus {
+    top: var(--wly-space-3);
+  }
+
+  :where(main):focus {
+    outline: none;
+  }
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-  transition: color var(--transition-fast);
+/* Focus ring is unlayered on purpose: it must beat every layered page/component box-shadow and outline.
+   One treatment for everything interactive: white ring + magenta halo. */
+:where(a, button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid var(--wly-ink);
+  outline-offset: 3px;
+  box-shadow: var(--wly-focus-ring);
 }
 
-button {
-  cursor: pointer;
-  border: none;
-  background: none;
-  font-family: inherit;
+/* The nav clips overflow, so its ring is drawn inside the link */
+.site-nav a:focus-visible {
+  outline-offset: -4px;
+  box-shadow: none;
 }
 
-/* Utility Classes */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--spacing-md);
+/* Cross-document page transitions: progressive enhancement, no JS. Unsupported browsers navigate normally.
+   Only the page content cross-fades; the chrome is a named group, so it stays put instead of flashing. */
+@view-transition {
+  navigation: auto;
 }
 
-.flex {
-  display: flex;
+/* Motion: kill every infinite animation (gradient shift, spinner, floats, shine sweeps) and all transitions */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+
+  body {
+    animation: none;
+    background-position: 35% 50%;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+
+  .spinner,
+  .container2 .box span::before,
+  .container2 .box span::after,
+  .box .square {
+    animation: none !important;
+  }
 }
 
-.grid {
-  display: grid;
+/* Higher contrast: solid backdrop, opaque panes, full-white text */
+@media (prefers-contrast: more) {
+  :root {
+    --wly-muted: #fff;
+    --wly-glass-text: rgba(12, 2, 32, 0.96);
+    --wly-glass-solid: #1a0540;
+    --wly-glass-border: #fff;
+    --wly-glass-border-soft: #fff;
+    --wly-glass-border-faint: #fff;
+  }
+
+  body {
+    background: var(--wly-art-base);
+    animation: none;
+  }
+
+  body::before,
+  body::after {
+    display: none;
+  }
 }
 
-.text-center {
-  text-align: center;
-}
+/* Forced colours (Windows High Contrast): system palette, no decorative backdrop, explicit borders */
+@media (forced-colors: active) {
+  body {
+    background: Canvas;
+    animation: none;
+  }
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-} 
+  body::before,
+  body::after {
+    display: none;
+  }
+
+  .spinner {
+    display: none;
+  }
+
+  a[aria-current="page"] {
+    outline: 2px solid Highlight;
+    outline-offset: -4px;
+  }
+
+  .site-nav,
+  .nav-toggle,
+  .footerbase,
+  .card,
+  .page-title,
+  .content,
+  .container,
+  .chip {
+    border: 1px solid CanvasText;
+  }
+}
