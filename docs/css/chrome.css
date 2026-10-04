@@ -260,10 +260,8 @@
 
   /* ---- Footer bar + social tiles ---- */
   .footerbase {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    /* In-flow (not fixed): a fixed bar would cover page content while scrolling. */
+    position: static;
     height: 48px;
     overflow: hidden;
     z-index: 10;
